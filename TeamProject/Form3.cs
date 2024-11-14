@@ -15,6 +15,7 @@ namespace TeamProject
         public 상품재고관리()
         {
             InitializeComponent();
+            InitializeSearchBox();
         }
 
         private void 추가_Click(object sender, EventArgs e)
@@ -48,18 +49,31 @@ namespace TeamProject
             this.Hide();
         }
 
-        private void Pmanage_text_Click(object sender, EventArgs e)
+        private void InitializeSearchBox()
         {
-           
+            검색창.ForeColor = Color.Gray;
+            검색창.Text = "검색어를 입력하세요";
+
+            검색창.Enter += 검색창_Enter;
+            검색창.Leave += 검색창_Leave;
         }
 
-        private void Pregister_text_Click(object sender, EventArgs e)
+        private void 검색창_Enter(object sender, EventArgs e)
         {
-            // Form2 인스턴스를 생성합니다.
-            Form2 form2 = new Form2();
+            if (검색창.Text == "검색어를 입력하세요")
+            {
+                검색창.Text = "";
+                검색창.ForeColor = Color.Black;
+            }
+        }
 
-            // Form2를 보여줍니다.
-            form2.Show();
+        private void 검색창_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(검색창.Text))
+            {
+                검색창.Text = "검색어를 입력하세요";
+                검색창.ForeColor = Color.Gray;
+            }
         }
     }
 }
