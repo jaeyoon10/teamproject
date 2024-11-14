@@ -65,8 +65,6 @@
             this.id_text.Name = "id_text";
             this.id_text.Size = new System.Drawing.Size(207, 39);
             this.id_text.TabIndex = 2;
-            this.id_text.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.id_text.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // password_text
             // 
@@ -76,8 +74,6 @@
             this.password_text.Name = "password_text";
             this.password_text.Size = new System.Drawing.Size(207, 39);
             this.password_text.TabIndex = 3;
-            this.password_text.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.password_text.UseSystemPasswordChar = true;
             // 
             // Login
             // 
@@ -112,7 +108,7 @@
             this.Controls.Add(this.id_text);
             this.Controls.Add(this.password);
             this.Controls.Add(this.id);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
