@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace TeamProject
 {
-    public partial class Form3 : Form
+    public partial class 상품재고관리 : Form
     {
-        public Form3()
+        public 상품재고관리()
         {
             InitializeComponent();
         }
