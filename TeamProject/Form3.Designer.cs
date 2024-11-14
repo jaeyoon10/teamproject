@@ -39,6 +39,9 @@
             this.Report_text = new System.Windows.Forms.Label();
             this.Sale_text = new System.Windows.Forms.Label();
             this.Pmanage_text = new System.Windows.Forms.Label();
+            this.추가 = new System.Windows.Forms.Button();
+            this.수정 = new System.Windows.Forms.Button();
+            this.삭제 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.재고관리)).BeginInit();
             this.SuspendLayout();
             // 
@@ -147,11 +150,41 @@
             this.Pmanage_text.TabIndex = 14;
             this.Pmanage_text.Text = "상품 관리";
             // 
+            // 추가
+            // 
+            this.추가.Location = new System.Drawing.Point(1041, 581);
+            this.추가.Name = "추가";
+            this.추가.Size = new System.Drawing.Size(75, 23);
+            this.추가.TabIndex = 17;
+            this.추가.Text = "추가";
+            this.추가.UseVisualStyleBackColor = true;
+            // 
+            // 수정
+            // 
+            this.수정.Location = new System.Drawing.Point(1122, 581);
+            this.수정.Name = "수정";
+            this.수정.Size = new System.Drawing.Size(75, 23);
+            this.수정.TabIndex = 18;
+            this.수정.Text = "수정";
+            this.수정.UseVisualStyleBackColor = true;
+            // 
+            // 삭제
+            // 
+            this.삭제.Location = new System.Drawing.Point(1203, 581);
+            this.삭제.Name = "삭제";
+            this.삭제.Size = new System.Drawing.Size(75, 23);
+            this.삭제.TabIndex = 19;
+            this.삭제.Text = "삭제";
+            this.삭제.UseVisualStyleBackColor = true;
+            // 
             // 상품재고관리
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1373, 734);
+            this.Controls.Add(this.삭제);
+            this.Controls.Add(this.수정);
+            this.Controls.Add(this.추가);
             this.Controls.Add(this.Report_text);
             this.Controls.Add(this.Sale_text);
             this.Controls.Add(this.Pmanage_text);
@@ -184,5 +217,8 @@
         private System.Windows.Forms.Label Report_text;
         private System.Windows.Forms.Label Sale_text;
         private System.Windows.Forms.Label Pmanage_text;
+        private System.Windows.Forms.Button 추가;
+        private System.Windows.Forms.Button 수정;
+        private System.Windows.Forms.Button 삭제;
     }
 }
