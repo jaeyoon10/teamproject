@@ -12,10 +12,19 @@ namespace TeamProject
 {
     public partial class 상품재고관리 : Form
     {
+        private DBClass db;
         public 상품재고관리()
         {
             InitializeComponent();
             InitializeSearchBox();
+            db = new DBClass();
+            db.DB_Open();
+            LoadProductData(); // 폼이 열릴 때 데이터 로드
+        }
+        private void LoadProductData()
+        {
+            DataTable productData = db.GetProductData(); // DB에서 JOIN된 데이터 가져오기
+            재고관리.DataSource = productData; // DataGridView에 데이터 바인딩
         }
 
         private void 추가_Click(object sender, EventArgs e)
@@ -31,7 +40,7 @@ namespace TeamProject
         {
             // Form6 인스턴스를 생성하고 보여줍니다.
             보고서 form6 = new 보고서();
-            
+
             form6.Show();
 
             // 현재 Form3을 숨기거나 닫습니다.
@@ -42,7 +51,7 @@ namespace TeamProject
         {
             // Form5 인스턴스를 생성하고 보여줍니다.
             Form5 form5 = new Form5();
-            
+
             form5.Show();
 
             // 현재 Form3을 숨기거나 닫습니다.
@@ -75,5 +84,7 @@ namespace TeamProject
                 검색창.ForeColor = Color.Gray;
             }
         }
+
+
     }
 }
