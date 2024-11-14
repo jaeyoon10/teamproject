@@ -35,6 +35,10 @@
             this.검색창 = new System.Windows.Forms.TextBox();
             this.검색버튼 = new System.Windows.Forms.Button();
             this.버튼생성 = new System.Windows.Forms.FlowLayoutPanel();
+            this.Pregister_text = new System.Windows.Forms.Label();
+            this.Report_text = new System.Windows.Forms.Label();
+            this.Sale_text = new System.Windows.Forms.Label();
+            this.Pmanage_text = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.재고관리)).BeginInit();
             this.SuspendLayout();
             // 
@@ -99,11 +103,59 @@
             this.버튼생성.Size = new System.Drawing.Size(200, 37);
             this.버튼생성.TabIndex = 12;
             // 
+            // Pregister_text
+            // 
+            this.Pregister_text.AutoSize = true;
+            this.Pregister_text.Font = new System.Drawing.Font("궁서체", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Pregister_text.Location = new System.Drawing.Point(27, 118);
+            this.Pregister_text.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Pregister_text.Name = "Pregister_text";
+            this.Pregister_text.Size = new System.Drawing.Size(129, 25);
+            this.Pregister_text.TabIndex = 13;
+            this.Pregister_text.Text = "상품 등록";
+            // 
+            // Report_text
+            // 
+            this.Report_text.AutoSize = true;
+            this.Report_text.Font = new System.Drawing.Font("궁서체", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Report_text.Location = new System.Drawing.Point(17, 538);
+            this.Report_text.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Report_text.Name = "Report_text";
+            this.Report_text.Size = new System.Drawing.Size(155, 25);
+            this.Report_text.TabIndex = 16;
+            this.Report_text.Text = "보고서 관리";
+            // 
+            // Sale_text
+            // 
+            this.Sale_text.AutoSize = true;
+            this.Sale_text.Font = new System.Drawing.Font("궁서체", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Sale_text.Location = new System.Drawing.Point(27, 398);
+            this.Sale_text.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Sale_text.Name = "Sale_text";
+            this.Sale_text.Size = new System.Drawing.Size(129, 25);
+            this.Sale_text.TabIndex = 15;
+            this.Sale_text.Text = "판매 내역";
+            // 
+            // Pmanage_text
+            // 
+            this.Pmanage_text.AutoSize = true;
+            this.Pmanage_text.Font = new System.Drawing.Font("궁서체", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Pmanage_text.Location = new System.Drawing.Point(27, 257);
+            this.Pmanage_text.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Pmanage_text.Name = "Pmanage_text";
+            this.Pmanage_text.Size = new System.Drawing.Size(129, 25);
+            this.Pmanage_text.TabIndex = 14;
+            this.Pmanage_text.Text = "상품 관리";
+            // 
             // 상품재고관리
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1373, 734);
+            this.Controls.Add(this.Report_text);
+            this.Controls.Add(this.Sale_text);
+            this.Controls.Add(this.Pmanage_text);
+            this.Controls.Add(this.Pregister_text);
             this.Controls.Add(this.버튼생성);
             this.Controls.Add(this.검색버튼);
             this.Controls.Add(this.검색창);
@@ -128,5 +180,9 @@
         private System.Windows.Forms.TextBox 검색창;
         private System.Windows.Forms.Button 검색버튼;
         private System.Windows.Forms.FlowLayoutPanel 버튼생성;
+        private System.Windows.Forms.Label Pregister_text;
+        private System.Windows.Forms.Label Report_text;
+        private System.Windows.Forms.Label Sale_text;
+        private System.Windows.Forms.Label Pmanage_text;
     }
 }
