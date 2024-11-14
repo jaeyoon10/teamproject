@@ -52,6 +52,7 @@
             this.Report_text.Size = new System.Drawing.Size(178, 30);
             this.Report_text.TabIndex = 20;
             this.Report_text.Text = "보고서 관리";
+            this.Report_text.Click += new System.EventHandler(this.Report_text_Click);
             // 
             // Sale_text
             // 
@@ -63,6 +64,7 @@
             this.Sale_text.Size = new System.Drawing.Size(148, 30);
             this.Sale_text.TabIndex = 19;
             this.Sale_text.Text = "판매 내역";
+            this.Sale_text.Click += new System.EventHandler(this.Sale_text_Click);
             // 
             // Pmanage_text
             // 
@@ -74,6 +76,7 @@
             this.Pmanage_text.Size = new System.Drawing.Size(148, 30);
             this.Pmanage_text.TabIndex = 18;
             this.Pmanage_text.Text = "상품 관리";
+            this.Pmanage_text.Click += new System.EventHandler(this.Pmanage_text_Click);
             // 
             // Pregister_text
             // 
@@ -85,6 +88,7 @@
             this.Pregister_text.Size = new System.Drawing.Size(148, 30);
             this.Pregister_text.TabIndex = 17;
             this.Pregister_text.Text = "상품 등록";
+            this.Pregister_text.Click += new System.EventHandler(this.Pregister_text_Click);
             // 
             // 버튼생성
             // 

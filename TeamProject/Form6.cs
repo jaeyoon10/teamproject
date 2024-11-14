@@ -50,5 +50,27 @@ namespace TeamProject
                 startY += offsetY;
             }
         }
+
+        private void Sale_text_Click(object sender, EventArgs e)
+        {
+            // Form5 인스턴스를 생성하고 보여줍니다.
+            Form5 form5 = new Form5();
+
+            form5.Show();
+
+            // 현재 Form3을 숨기거나 닫습니다.
+            this.Hide();
+        }
+
+        private void Pmanage_text_Click(object sender, EventArgs e)
+        {
+            // Form3 인스턴스를 생성하고 보여줍니다.
+            상품재고관리 form3 = new 상품재고관리();
+
+            form3.Show();
+
+            // 현재 Form3을 숨기거나 닫습니다.
+            this.Hide();
+        }
     }
 }
