@@ -25,5 +25,16 @@ namespace TeamProject
             // Form2를 보여줍니다.
             form2.Show();
         }
+
+        private void Report_text_Click(object sender, EventArgs e)
+        {
+            // Form6 인스턴스를 생성하고 보여줍니다.
+            보고서 form6 = new 보고서();
+            form6.ShowDialog();
+            this.Show();
+
+            // 현재 Form3을 숨기거나 닫습니다.
+            this.Hide();
+        }
     }
 }

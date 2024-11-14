@@ -152,7 +152,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 696);
+            this.ClientSize = new System.Drawing.Size(623, 614);
             this.Controls.Add(this.수정버튼);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.textBox4);
