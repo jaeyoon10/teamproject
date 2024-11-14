@@ -42,6 +42,7 @@
             this.추가 = new System.Windows.Forms.Button();
             this.수정 = new System.Windows.Forms.Button();
             this.삭제 = new System.Windows.Forms.Button();
+            this.판매 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.재고관리)).BeginInit();
             this.SuspendLayout();
             // 
@@ -177,11 +178,21 @@
             this.삭제.Text = "삭제";
             this.삭제.UseVisualStyleBackColor = true;
             // 
+            // 판매
+            // 
+            this.판매.Location = new System.Drawing.Point(1203, 628);
+            this.판매.Name = "판매";
+            this.판매.Size = new System.Drawing.Size(110, 78);
+            this.판매.TabIndex = 20;
+            this.판매.Text = "판매";
+            this.판매.UseVisualStyleBackColor = true;
+            // 
             // 상품재고관리
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1373, 734);
+            this.Controls.Add(this.판매);
             this.Controls.Add(this.삭제);
             this.Controls.Add(this.수정);
             this.Controls.Add(this.추가);
@@ -220,5 +231,6 @@
         private System.Windows.Forms.Button 추가;
         private System.Windows.Forms.Button 수정;
         private System.Windows.Forms.Button 삭제;
+        private System.Windows.Forms.Button 판매;
     }
 }
