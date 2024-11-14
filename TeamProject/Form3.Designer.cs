@@ -50,7 +50,7 @@
             // 
             this.재고관리.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.재고관리.Location = new System.Drawing.Point(264, 89);
-            this.재고관리.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.재고관리.Margin = new System.Windows.Forms.Padding(4);
             this.재고관리.Name = "재고관리";
             this.재고관리.RowHeadersWidth = 51;
             this.재고관리.RowTemplate.Height = 27;
@@ -61,7 +61,7 @@
             // 
             this.전체기간.FormattingEnabled = true;
             this.전체기간.Location = new System.Drawing.Point(559, 788);
-            this.전체기간.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.전체기간.Margin = new System.Windows.Forms.Padding(4);
             this.전체기간.Name = "전체기간";
             this.전체기간.Size = new System.Drawing.Size(91, 23);
             this.전체기간.TabIndex = 1;
@@ -71,7 +71,7 @@
             // 
             this.카테고리.FormattingEnabled = true;
             this.카테고리.Location = new System.Drawing.Point(832, 788);
-            this.카테고리.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.카테고리.Margin = new System.Windows.Forms.Padding(4);
             this.카테고리.Name = "카테고리";
             this.카테고리.Size = new System.Drawing.Size(85, 23);
             this.카테고리.TabIndex = 2;
@@ -81,7 +81,7 @@
             // 
             this.상품명.FormattingEnabled = true;
             this.상품명.Location = new System.Drawing.Point(708, 788);
-            this.상품명.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.상품명.Margin = new System.Windows.Forms.Padding(4);
             this.상품명.Name = "상품명";
             this.상품명.Size = new System.Drawing.Size(80, 23);
             this.상품명.TabIndex = 3;
@@ -90,7 +90,7 @@
             // 검색창
             // 
             this.검색창.Location = new System.Drawing.Point(972, 788);
-            this.검색창.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.검색창.Margin = new System.Windows.Forms.Padding(4);
             this.검색창.Name = "검색창";
             this.검색창.Size = new System.Drawing.Size(238, 25);
             this.검색창.TabIndex = 4;
@@ -99,7 +99,7 @@
             // 검색버튼
             // 
             this.검색버튼.Location = new System.Drawing.Point(1301, 791);
-            this.검색버튼.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.검색버튼.Margin = new System.Windows.Forms.Padding(4);
             this.검색버튼.Name = "검색버튼";
             this.검색버튼.Size = new System.Drawing.Size(75, 23);
             this.검색버튼.TabIndex = 5;
@@ -109,7 +109,7 @@
             // 버튼생성
             // 
             this.버튼생성.Location = new System.Drawing.Point(832, 716);
-            this.버튼생성.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.버튼생성.Margin = new System.Windows.Forms.Padding(4);
             this.버튼생성.Name = "버튼생성";
             this.버튼생성.Size = new System.Drawing.Size(200, 37);
             this.버튼생성.TabIndex = 12;
@@ -162,7 +162,7 @@
             // 추가
             // 
             this.추가.Location = new System.Drawing.Point(1301, 697);
-            this.추가.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.추가.Margin = new System.Windows.Forms.Padding(4);
             this.추가.Name = "추가";
             this.추가.Size = new System.Drawing.Size(75, 23);
             this.추가.TabIndex = 17;
@@ -173,7 +173,7 @@
             // 수정
             // 
             this.수정.Location = new System.Drawing.Point(1402, 697);
-            this.수정.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.수정.Margin = new System.Windows.Forms.Padding(4);
             this.수정.Name = "수정";
             this.수정.Size = new System.Drawing.Size(75, 23);
             this.수정.TabIndex = 18;
@@ -183,7 +183,7 @@
             // 삭제
             // 
             this.삭제.Location = new System.Drawing.Point(1504, 697);
-            this.삭제.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.삭제.Margin = new System.Windows.Forms.Padding(4);
             this.삭제.Name = "삭제";
             this.삭제.Size = new System.Drawing.Size(75, 23);
             this.삭제.TabIndex = 19;
@@ -192,7 +192,7 @@
             // 
             // 판매
             // 
-            this.판매.Location = new System.Drawing.Point(1203, 628);
+            this.판매.Location = new System.Drawing.Point(1445, 749);
             this.판매.Name = "판매";
             this.판매.Size = new System.Drawing.Size(88, 65);
             this.판매.TabIndex = 20;
@@ -203,7 +203,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1373, 734);
+            this.ClientSize = new System.Drawing.Size(1630, 871);
             this.Controls.Add(this.판매);
             this.Controls.Add(this.삭제);
             this.Controls.Add(this.수정);
@@ -219,7 +219,7 @@
             this.Controls.Add(this.카테고리);
             this.Controls.Add(this.전체기간);
             this.Controls.Add(this.재고관리);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "상품재고관리";
             this.Text = "상품재고관리";
             ((System.ComponentModel.ISupportInitialize)(this.재고관리)).EndInit();
