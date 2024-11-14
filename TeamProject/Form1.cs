@@ -24,11 +24,11 @@ namespace TeamProject
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Form2 인스턴스를 생성합니다.
-            Form2 form2 = new Form2();
+            // Form3 인스턴스를 생성합니다.
+            상품재고관리 form3 = new 상품재고관리();
 
-            // Form2를 보여줍니다.
-            form2.Show();
+            // Form3를 보여줍니다.
+            form3.Show();
             // Form1 숨기기
             this.Hide();
         }
