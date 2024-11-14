@@ -16,5 +16,14 @@ namespace TeamProject
         {
             InitializeComponent();
         }
+
+        private void 추가_Click(object sender, EventArgs e)
+        {
+            // Form2 인스턴스를 생성합니다.
+            Form2 form2 = new Form2();
+
+            // Form2를 보여줍니다.
+            form2.Show();
+        }
     }
 }
