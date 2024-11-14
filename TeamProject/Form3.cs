@@ -15,6 +15,7 @@ namespace TeamProject
         public 상품재고관리()
         {
             InitializeComponent();
+            InitializeSearchBox();
         }
 
         private void 추가_Click(object sender, EventArgs e)
@@ -35,6 +36,33 @@ namespace TeamProject
 
             // 현재 Form3을 숨기거나 닫습니다.
             this.Hide();
+        }
+
+        private void InitializeSearchBox()
+        {
+            검색창.ForeColor = Color.Gray;
+            검색창.Text = "검색어를 입력하세요";
+
+            검색창.Enter += 검색창_Enter;
+            검색창.Leave += 검색창_Leave;
+        }
+
+        private void 검색창_Enter(object sender, EventArgs e)
+        {
+            if (검색창.Text == "검색어를 입력하세요")
+            {
+                검색창.Text = "";
+                검색창.ForeColor = Color.Black;
+            }
+        }
+
+        private void 검색창_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(검색창.Text))
+            {
+                검색창.Text = "검색어를 입력하세요";
+                검색창.ForeColor = Color.Gray;
+            }
         }
     }
 }
