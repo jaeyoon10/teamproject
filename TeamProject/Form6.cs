@@ -86,7 +86,7 @@ namespace TeamProject
                 if (reportData.Rows.Count > 0)
                 {
                     // DataGridView에 조회된 보고서 데이터 설정
-                    dataGridView1.DataSource = reportData; // dataGridView1에 데이터를 표시
+                    dataGridView1.DataSource = reportData;
                 }
                 else
                 {
