@@ -125,7 +125,6 @@
             this.Pregister_text.Size = new System.Drawing.Size(148, 30);
             this.Pregister_text.TabIndex = 13;
             this.Pregister_text.Text = "상품 등록";
-            
             // 
             // Report_text
             // 
@@ -158,7 +157,6 @@
             this.Pmanage_text.Size = new System.Drawing.Size(148, 30);
             this.Pmanage_text.TabIndex = 14;
             this.Pmanage_text.Text = "상품 관리";
-            
             // 
             // 추가
             // 
@@ -224,7 +222,6 @@
             this.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
             this.Name = "상품재고관리";
             this.Text = "상품재고관리";
-            
             ((System.ComponentModel.ISupportInitialize)(this.재고관리)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
