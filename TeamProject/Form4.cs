@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace TeamProject
 {
-    public partial class Form4 : Form
+    public partial class 수정창 : Form
     {
-        public Form4()
+        public 수정창()
         {
             InitializeComponent();
         }
