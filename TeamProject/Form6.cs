@@ -12,9 +12,12 @@ namespace TeamProject
 {
     public partial class 보고서 : Form
     {
+        private DBClass dbClass;
+
         public 보고서()
         {
             InitializeComponent();
+            dbClass = new DBClass(); // DBClass 객체 초기화
         }
 
         private void 출력_Click(object sender, EventArgs e)
@@ -71,6 +74,29 @@ namespace TeamProject
 
             // 현재 Form3을 숨기거나 닫습니다.
             this.Hide();
+        }
+
+        private void 조회_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // DBClass에서 보고서 데이터를 조회
+                DataTable reportData = dbClass.GetReportData();
+
+                if (reportData.Rows.Count > 0)
+                {
+                    // DataGridView에 조회된 보고서 데이터 설정
+                    dataGridView1.DataSource = reportData; // dataGridView1에 데이터를 표시
+                }
+                else
+                {
+                    MessageBox.Show("보고서 데이터가 없습니다.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"오류 발생: {ex.Message}");
+            }
         }
     }
 }

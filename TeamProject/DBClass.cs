@@ -26,7 +26,7 @@ namespace TeamProject
         {
             try
             {
-                string connectionString = "User Id=team; Password=1234; Data Source=(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521)) (CONNECT_DATA = (SERVER = DEDICATED) (SERVICE_NAME = xe) ) );";
+                string connectionString = "User Id=rjsgml350; Password=qhdud350; Data Source=(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521)) (CONNECT_DATA = (SERVER = DEDICATED) (SERVICE_NAME = xe) ) );";
                 string commandString = "select * from storeowner";
 
                 DBAdapter = new OracleDataAdapter(commandString, connectionString);
@@ -81,5 +81,35 @@ namespace TeamProject
             }
             return productTable;
         }
+        // GetReportData 메서드 추가
+        public DataTable GetReportData()
+        {
+            DataTable reportTable = new DataTable();
+            try
+            {
+                string query = @"
+            SELECT 
+                r.report_id, 
+                r.output_content, 
+                r.search_content, 
+                s.product_name AS stock_name, 
+                sh.sales_amount
+            FROM 
+                report r
+            JOIN 
+                stock s ON r.stock_id = s.stock_id
+            JOIN 
+                sales_history sh ON r.sales_id = sh.sales_id";
+
+                OracleDataAdapter adapter = new OracleDataAdapter(query, dBAdapter.SelectCommand.Connection);
+                adapter.Fill(reportTable);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve report data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return reportTable;
+        }
     }
 }
+ 
