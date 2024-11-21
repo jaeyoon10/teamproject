@@ -31,7 +31,6 @@
             this.Report_text = new System.Windows.Forms.Label();
             this.Sale_text = new System.Windows.Forms.Label();
             this.Pmanage_text = new System.Windows.Forms.Label();
-            this.버튼생성 = new System.Windows.Forms.FlowLayoutPanel();
             this.검색버튼 = new System.Windows.Forms.Button();
             this.검색창 = new System.Windows.Forms.TextBox();
             this.카테고리 = new System.Windows.Forms.ComboBox();
@@ -76,17 +75,9 @@
             this.Pmanage_text.Text = "상품 관리";
             this.Pmanage_text.Click += new System.EventHandler(this.Pmanage_text_Click);
             // 
-            // 버튼생성
-            // 
-            this.버튼생성.Location = new System.Drawing.Point(736, 585);
-            this.버튼생성.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.버튼생성.Name = "버튼생성";
-            this.버튼생성.Size = new System.Drawing.Size(200, 36);
-            this.버튼생성.TabIndex = 27;
-            // 
             // 검색버튼
             // 
-            this.검색버튼.Location = new System.Drawing.Point(1111, 648);
+            this.검색버튼.Location = new System.Drawing.Point(1076, 650);
             this.검색버튼.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.검색버튼.Name = "검색버튼";
             this.검색버튼.Size = new System.Drawing.Size(75, 24);
@@ -97,7 +88,7 @@
             // 검색창
             // 
             this.검색창.ForeColor = System.Drawing.Color.Gray;
-            this.검색창.Location = new System.Drawing.Point(848, 645);
+            this.검색창.Location = new System.Drawing.Point(813, 647);
             this.검색창.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.검색창.Name = "검색창";
             this.검색창.Size = new System.Drawing.Size(237, 25);
@@ -107,18 +98,29 @@
             // 
             // 카테고리
             // 
+            this.카테고리.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.카테고리.FormattingEnabled = true;
-            this.카테고리.Location = new System.Drawing.Point(736, 645);
+            this.카테고리.Items.AddRange(new object[] {
+            "음료",
+            "스낵",
+            "즉석식품",
+            "유제품",
+            "가공식품",
+            "생활용품",
+            "주류",
+            "담배",
+            "뷰티",
+            "기타"});
+            this.카테고리.Location = new System.Drawing.Point(701, 647);
             this.카테고리.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.카테고리.Name = "카테고리";
             this.카테고리.Size = new System.Drawing.Size(85, 23);
             this.카테고리.TabIndex = 23;
-            this.카테고리.Text = "카테고리";
             // 
             // 전체기간
             // 
             this.전체기간.FormattingEnabled = true;
-            this.전체기간.Location = new System.Drawing.Point(617, 645);
+            this.전체기간.Location = new System.Drawing.Point(582, 647);
             this.전체기간.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.전체기간.Name = "전체기간";
             this.전체기간.Size = new System.Drawing.Size(91, 23);
@@ -141,7 +143,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1453, 755);
-            this.Controls.Add(this.버튼생성);
             this.Controls.Add(this.검색버튼);
             this.Controls.Add(this.검색창);
             this.Controls.Add(this.카테고리);
@@ -165,7 +166,6 @@
         private System.Windows.Forms.Label Report_text;
         private System.Windows.Forms.Label Sale_text;
         private System.Windows.Forms.Label Pmanage_text;
-        private System.Windows.Forms.FlowLayoutPanel 버튼생성;
         private System.Windows.Forms.Button 검색버튼;
         private System.Windows.Forms.TextBox 검색창;
         private System.Windows.Forms.ComboBox 카테고리;

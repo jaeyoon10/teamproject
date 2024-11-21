@@ -2,7 +2,6 @@
 using System.Data;
 using System.Windows.Forms;
 using Oracle.DataAccess.Client;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -110,6 +109,36 @@ namespace TeamProject
             }
             return reportTable;
         }
+        public DataTable GetStockData(string filterQuery = "")
+        {
+            DataTable stockTable = new DataTable();
+            try
+            {
+                string query = $@"
+        SELECT 
+            s.stock_id, 
+            s.stock_quantity, 
+            s.min_stock_quantity, 
+            s.expiration_date, 
+            r.product_name, 
+            r.category, 
+            r.registration_date 
+        FROM 
+            stock s
+        JOIN 
+            registration r ON s.registration_id = r.registration_id
+        {filterQuery}"; // 필터 조건 추가
+
+                OracleDataAdapter adapter = new OracleDataAdapter(query, dBAdapter.SelectCommand.Connection);
+                adapter.Fill(stockTable);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve stock data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return stockTable;
+        }
+
     }
 }
  
