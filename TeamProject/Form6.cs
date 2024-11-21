@@ -87,6 +87,20 @@ namespace TeamProject
                 {
                     // DataGridView에 조회된 보고서 데이터 설정
                     dataGridView1.DataSource = reportData;
+
+                    // 총 판매 수량 및 총 판매 금액 계산
+                    int totalQuantity = 0;
+                    decimal totalAmount = 0;
+
+                    foreach (DataRow row in reportData.Rows)
+                    {
+                        totalQuantity += Convert.ToInt32(row["판매수량"]);
+                        totalAmount += Convert.ToDecimal(row["판매금액"]);
+                    }
+
+                    // Label에 총 판매 수량과 총 판매 금액 표시
+                    label1.Text = totalQuantity.ToString(); // 총 판매 수량
+                    label2.Text = $"{totalAmount:C}"; // 총 판매 금액 (원화 형식)
                 }
                 else
                 {
