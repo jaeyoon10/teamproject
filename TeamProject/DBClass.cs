@@ -86,29 +86,37 @@ namespace TeamProject
             DataTable reportTable = new DataTable();
             try
             {
+                // 수정된 쿼리: 판매 수량과 판매 금액의 합계를 계산
                 string query = @"
-            SELECT 
-                r.report_id, 
-                r.output_content, 
-                r.search_content, 
-                s.product_name AS stock_name, 
-                sh.sales_amount
-            FROM 
-                report r
-            JOIN 
-                stock s ON r.stock_id = s.stock_id
-            JOIN 
-                sales_history sh ON r.sales_id = sh.sales_id";
+        SELECT 
+            r.report_id AS ReportID, 
+            s.product_name AS ProductName, 
+            SUM(sh.sales_amount) AS TotalSalesAmount, 
+            SUM(r.output_content) AS TotalOutputContent
+        FROM 
+            report r
+        JOIN 
+            stock s ON r.stock_id = s.stock_id
+        JOIN 
+            sales_history sh ON r.sales_id = sh.sales_id
+        GROUP BY 
+            r.report_id, s.product_name";
 
-                OracleDataAdapter adapter = new OracleDataAdapter(query, dBAdapter.SelectCommand.Connection);
-                adapter.Fill(reportTable);
+                // OracleDataAdapter를 사용하여 데이터 조회 및 DataTable에 채우기
+                using (OracleDataAdapter adapter = new OracleDataAdapter(query, dBAdapter.SelectCommand.Connection))
+                {
+                    adapter.Fill(reportTable);
+                }
             }
             catch (Exception ex)
             {
+                // 예외 발생 시 오류 메시지 표시
                 MessageBox.Show("Failed to retrieve report data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            return reportTable;
+
+            return reportTable; // 조회된 데이터 반환
         }
+
         public DataTable GetStockData(string filterQuery = "")
         {
             DataTable stockTable = new DataTable();
