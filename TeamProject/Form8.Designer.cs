@@ -49,7 +49,7 @@
             this.판매.Name = "판매";
             this.판매.Size = new System.Drawing.Size(102, 79);
             this.판매.TabIndex = 1;
-            this.판매.Text = "button1";
+            this.판매.Text = "판매";
             this.판매.UseVisualStyleBackColor = true;
             // 
             // Form8
