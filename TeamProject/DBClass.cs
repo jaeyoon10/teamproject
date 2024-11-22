@@ -17,7 +17,7 @@ public class DBClass
     {
         try
         {
-            string connectionString = "User Id=team; Password=1234; Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=xe)));";
+            string connectionString = "User Id=rjsgml350; Password=qhdud350; Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=xe)));";
             dBAdapter = new OracleDataAdapter("SELECT * FROM storeowner", connectionString);
             myCommandBuilder = new OracleCommandBuilder(dBAdapter);
             dS = new DataSet();
@@ -36,7 +36,7 @@ public class DBClass
         try
         {
             string query = $"SELECT COUNT(*) FROM storeowner WHERE storeownerid = :storeOwnerId AND password = :password";
-            using (OracleConnection connection = new OracleConnection("User Id=teamplay; Password=2163; Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=xe)));"))
+            using (OracleConnection connection = new OracleConnection("User Id=rjsgml350; Password=qhdud350; Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=xe)));"))
             {
                 connection.Open(); // 연결 열기
                 using (OracleCommand cmd = new OracleCommand(query, connection))
