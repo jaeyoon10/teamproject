@@ -36,31 +36,36 @@
             // 재고관리
             // 
             this.재고관리.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.재고관리.Location = new System.Drawing.Point(339, 53);
+            this.재고관리.Location = new System.Drawing.Point(271, 44);
+            this.재고관리.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.재고관리.Name = "재고관리";
             this.재고관리.RowHeadersWidth = 62;
             this.재고관리.RowTemplate.Height = 30;
-            this.재고관리.Size = new System.Drawing.Size(1118, 499);
+            this.재고관리.Size = new System.Drawing.Size(894, 416);
             this.재고관리.TabIndex = 0;
             // 
             // 판매
             // 
-            this.판매.Location = new System.Drawing.Point(1355, 623);
+            this.판매.Location = new System.Drawing.Point(1084, 519);
+            this.판매.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.판매.Name = "판매";
-            this.판매.Size = new System.Drawing.Size(102, 79);
+            this.판매.Size = new System.Drawing.Size(82, 66);
             this.판매.TabIndex = 1;
             this.판매.Text = "button1";
             this.판매.UseVisualStyleBackColor = true;
+            this.판매.Click += new System.EventHandler(this.판매_Click);
             // 
             // Form8
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1546, 762);
+            this.ClientSize = new System.Drawing.Size(1237, 635);
             this.Controls.Add(this.판매);
             this.Controls.Add(this.재고관리);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Form8";
             this.Text = "Form8";
+            this.Load += new System.EventHandler(this.Form8_Load);
             ((System.ComponentModel.ISupportInitialize)(this.재고관리)).EndInit();
             this.ResumeLayout(false);
 

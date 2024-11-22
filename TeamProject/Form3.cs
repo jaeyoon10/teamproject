@@ -88,8 +88,6 @@ namespace TeamProject
                 if (재고관리.SelectedRows.Count > 0)
                 {
                     int stockId = Convert.ToInt32(재고관리.SelectedRows[0].Cells["stock_id"].Value);
-                    Form2 form2 = new Form2(stockId); // 수정 모드로 열기
-                    form2.ShowDialog();
                     LoadStockData(); // 수정 후 데이터 갱신
                 }
             };

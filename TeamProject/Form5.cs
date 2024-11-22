@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Oracle.DataAccess.Client;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,9 +21,28 @@ namespace TeamProject
 
         private void Form5_Load(object sender, EventArgs e)
         {
-
+            LoadSalesHistory();
         }
+        private void LoadSalesHistory()
+        {
+            using (var connection = new OracleConnection("Your Connection String"))
+            {
+                connection.Open();
+                string query = @"
+                SELECT sh.sales_id, sh.sale_time, sh.quantity, sh.total_sales_amount, 
+                       m.name AS member_name, m.card_number, r.product_name
+                FROM sales_history sh
+                JOIN stock s ON sh.stock_id = s.stock_id
+                JOIN registration r ON s.registration_id = r.registration_id
+                JOIN member m ON sh.member_id = m.member_id";
 
+                OracleDataAdapter adapter = new OracleDataAdapter(query, connection);
+                DataTable salesTable = new DataTable();
+                adapter.Fill(salesTable);
+
+                판매내역.DataSource = salesTable;
+            }
+        }
         private void InitializeSearchBox()
         {
             검색창.ForeColor = Color.Gray;
