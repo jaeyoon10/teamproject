@@ -12,25 +12,22 @@ public class DBClass
     public OracleDataAdapter DBAdapter { get { return dBAdapter; } set { dBAdapter = value; } }
     public DataSet DS { get { return dS; } set { dS = value; } }
 
-        public void DB_Open()
+    // 데이터베이스 연결 열기
+    public void DB_Open()
+    {
+        try
         {
-            try
-            {
-                string connectionString = "User Id=rjsgml350; Password=qhdud350; Data Source=(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521)) (CONNECT_DATA = (SERVER = DEDICATED) (SERVICE_NAME = xe) ) );";
-                string commandString = "select * from storeowner";
-
-                DBAdapter = new OracleDataAdapter(commandString, connectionString);
-                MyCommandBuilder = new OracleCommandBuilder(DBAdapter);
-                DS = new DataSet();
-                DBAdapter.Fill(DS, "StoreOwner");
-
-                StoreOwnerTable = DS.Tables["StoreOwner"];
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Database connection error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            string connectionString = "User Id=teamplay; Password=2163; Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=xe)));";
+            dBAdapter = new OracleDataAdapter("SELECT * FROM storeowner", connectionString);
+            myCommandBuilder = new OracleCommandBuilder(dBAdapter);
+            dS = new DataSet();
+            dBAdapter.Fill(dS, "StoreOwner");
         }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Database connection error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+    }
 
     // storeowner 테이블에서 로그인 검증
     // storeowner 테이블에서 로그인 검증
@@ -82,44 +79,79 @@ public class DBClass
             supplier s ON r.supplier_id = s.supplier_id
         {filterQuery}";
 
-                OracleDataAdapter adapter = new OracleDataAdapter(query, dBAdapter.SelectCommand.Connection);
-                adapter.Fill(productTable);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Failed to retrieve product data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return productTable;
+            OracleDataAdapter adapter = new OracleDataAdapter(query, dBAdapter.SelectCommand.Connection);
+            adapter.Fill(registrationTable);
         }
-        public DataTable GetStockData(string filterQuery = "")
+        catch (Exception ex)
         {
-            DataTable stockTable = new DataTable();
-            try
-            {
-                string query = $@"
-        SELECT 
-            s.stock_id, 
-            s.stock_quantity, 
-            s.min_stock_quantity, 
-            s.expiration_date, 
-            r.product_name, 
-            r.category, 
-            r.registration_date 
-        FROM 
-            stock s
-        JOIN 
-            registration r ON s.registration_id = r.registration_id
-        {filterQuery}"; // 필터 조건 추가
+            MessageBox.Show("Failed to retrieve registration data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        return registrationTable;
+    }
 
-                OracleDataAdapter adapter = new OracleDataAdapter(query, dBAdapter.SelectCommand.Connection);
-                adapter.Fill(stockTable);
-            }
-            catch (Exception ex)
+
+    // stock 테이블 데이터 가져오기
+    public DataTable GetStockData(string filterQuery = "")
+    {
+        DataTable stockTable = new DataTable();
+        try
+        {
+            string query = $@"
+            SELECT 
+                s.stock_id, 
+                s.stock_quantity, 
+                s.min_stock_quantity, 
+                r.product_name, 
+                r.category
+            FROM 
+                stock s
+            JOIN 
+                registration r ON s.registration_id = r.registration_id
+            {filterQuery}";
+
+            OracleDataAdapter adapter = new OracleDataAdapter(query, dBAdapter.SelectCommand.Connection);
+            adapter.Fill(stockTable);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Failed to retrieve stock data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        return stockTable;
+    }
+    public DataTable GetReportData()
+    {
+        DataTable reportTable = new DataTable();
+        try
+        {
+            string query = @"
+            SELECT 
+                r.report_id AS ReportID, 
+                s.product_name AS ProductName, 
+                SUM(sh.sales_amount) AS TotalSalesAmount, 
+                SUM(r.output_content) AS TotalOutputContent
+            FROM 
+                report r
+            JOIN 
+                stock s ON r.stock_id = s.stock_id
+            JOIN 
+                sales_history sh ON r.sales_id = sh.sales_id
+            GROUP BY 
+                r.report_id, s.product_name";
+
+            using (OracleDataAdapter adapter = new OracleDataAdapter(query, dBAdapter.SelectCommand.Connection))
             {
-                MessageBox.Show("Failed to retrieve stock data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                adapter.Fill(reportTable);
             }
-            return stockTable;
+
+            // 디버깅: 쿼리 결과 행 수 확인
+            MessageBox.Show($"GetReportData 쿼리 결과: {reportTable.Rows.Count}행 조회됨");
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Failed to retrieve report data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        return reportTable;
     }
+
 }
