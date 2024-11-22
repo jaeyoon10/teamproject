@@ -1,25 +1,16 @@
-﻿    using System;
+﻿using Oracle.DataAccess.Client;
 using System.Data;
 using System.Windows.Forms;
-using Oracle.DataAccess.Client;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 
-namespace TeamProject
+public class DBClass
 {
-    public class DBClass
-    {
-        private OracleDataAdapter dBAdapter;
-        private DataSet dS;
-        private OracleCommandBuilder myCommandBuilder;
-        private DataTable storeOwnerTable;
+    private OracleDataAdapter dBAdapter;
+    private DataSet dS;
+    private OracleCommandBuilder myCommandBuilder;
 
-        public OracleDataAdapter DBAdapter { get { return dBAdapter; } set { dBAdapter = value; } }
-        public DataSet DS { get { return dS; } set { dS = value; } }
-        public OracleCommandBuilder MyCommandBuilder { get { return myCommandBuilder; } set { myCommandBuilder = value; } }
-        public DataTable StoreOwnerTable { get { return storeOwnerTable; } set { storeOwnerTable = value; } }
+    public OracleDataAdapter DBAdapter { get { return dBAdapter; } set { dBAdapter = value; } }
+    public DataSet DS { get { return dS; } set { dS = value; } }
 
         public void DB_Open()
         {
@@ -41,35 +32,55 @@ namespace TeamProject
             }
         }
 
-        public bool ValidateStoreOwner(string storeOwnerId, string password)
+    // storeowner 테이블에서 로그인 검증
+    // storeowner 테이블에서 로그인 검증
+    public bool ValidateStoreOwner(string storeOwnerId, string password)
+    {
+        try
         {
-            DataRow[] foundRows = StoreOwnerTable.Select($"storeownerid = '{storeOwnerId}' AND password = '{password}'");
-            return foundRows.Length > 0;
-        }
-
-        public void DB_ObjCreate()
-        {
-            StoreOwnerTable = new DataTable();
-        }
-        public DataTable GetProductData()
-        {
-            DataTable productTable = new DataTable();
-            try
+            string query = $"SELECT COUNT(*) FROM storeowner WHERE storeownerid = :storeOwnerId AND password = :password";
+            using (OracleConnection connection = new OracleConnection("User Id=teamplay; Password=2163; Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=xe)));"))
             {
-                string query = @"
-            SELECT 
-                p.product_id, 
-                p.expiration_date, 
-                p.product_name, 
-                r.registration_id,
-                r.registration_date, 
-                r.registration_price, 
-                r.category, 
-                r.remarks
-            FROM 
-                product p
-            JOIN 
-                registration r ON p.registration_id = r.registration_id";
+                connection.Open(); // 연결 열기
+                using (OracleCommand cmd = new OracleCommand(query, connection))
+                {
+                    cmd.Parameters.Add(new OracleParameter("storeOwnerId", storeOwnerId));
+                    cmd.Parameters.Add(new OracleParameter("password", password));
+
+                    object result = cmd.ExecuteScalar();
+                    return Convert.ToInt32(result) > 0; // 로그인 성공 여부 반환
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("로그인 중 오류 발생: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return false;
+        }
+    }
+
+
+
+    // registration 테이블 데이터 가져오기
+    public DataTable GetRegistrationData(string filterQuery = "")
+    {
+        DataTable registrationTable = new DataTable();
+        try
+        {
+            string query = $@"
+        SELECT 
+            r.registration_id AS 등록ID,  
+            r.registration_price AS 등록가격, 
+            r.category AS 카테고리, 
+            r.product_name AS 상품명, 
+            r.expiration_date AS 유통기한, 
+            r.remarks AS 비고, 
+            s.name AS 공급업체명 -- 공급업체명을 가져옴
+        FROM 
+            registration r
+        LEFT JOIN 
+            supplier s ON r.supplier_id = s.supplier_id
+        {filterQuery}";
 
                 OracleDataAdapter adapter = new OracleDataAdapter(query, dBAdapter.SelectCommand.Connection);
                 adapter.Fill(productTable);
@@ -80,43 +91,6 @@ namespace TeamProject
             }
             return productTable;
         }
-        // GetReportData 메서드 추가
-        public DataTable GetReportData()
-        {
-            DataTable reportTable = new DataTable();
-            try
-            {
-                // 수정된 쿼리: 판매 수량과 판매 금액의 합계를 계산
-                string query = @"
-        SELECT 
-            r.report_id AS ReportID, 
-            s.product_name AS ProductName, 
-            SUM(sh.sales_amount) AS TotalSalesAmount, 
-            SUM(r.output_content) AS TotalOutputContent
-        FROM 
-            report r
-        JOIN 
-            stock s ON r.stock_id = s.stock_id
-        JOIN 
-            sales_history sh ON r.sales_id = sh.sales_id
-        GROUP BY 
-            r.report_id, s.product_name";
-
-                // OracleDataAdapter를 사용하여 데이터 조회 및 DataTable에 채우기
-                using (OracleDataAdapter adapter = new OracleDataAdapter(query, dBAdapter.SelectCommand.Connection))
-                {
-                    adapter.Fill(reportTable);
-                }
-            }
-            catch (Exception ex)
-            {
-                // 예외 발생 시 오류 메시지 표시
-                MessageBox.Show("Failed to retrieve report data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            return reportTable; // 조회된 데이터 반환
-        }
-
         public DataTable GetStockData(string filterQuery = "")
         {
             DataTable stockTable = new DataTable();
@@ -149,4 +123,3 @@ namespace TeamProject
 
     }
 }
- 

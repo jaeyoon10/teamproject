@@ -29,7 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.재고관리 = new System.Windows.Forms.DataGridView();
+            this.상품관리 = new System.Windows.Forms.DataGridView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.추가ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.상품수정ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.상품삭제ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.카테고리 = new System.Windows.Forms.ComboBox();
             this.검색창 = new System.Windows.Forms.TextBox();
             this.검색버튼 = new System.Windows.Forms.Button();
@@ -40,28 +44,53 @@
             this.추가 = new System.Windows.Forms.Button();
             this.수정 = new System.Windows.Forms.Button();
             this.삭제 = new System.Windows.Forms.Button();
-            this.판매 = new System.Windows.Forms.Button();
+            this.재고 = new System.Windows.Forms.Button();
             this.시작날짜 = new System.Windows.Forms.DateTimePicker();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.추가ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.상품수정ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.상품삭제ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.종료날짜 = new System.Windows.Forms.DateTimePicker();
             this.기간선택 = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.재고관리)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.상품관리)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // 재고관리
+            // 상품관리
             // 
-            this.재고관리.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.재고관리.Location = new System.Drawing.Point(230, 61);
-            this.재고관리.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
-            this.재고관리.Name = "재고관리";
-            this.재고관리.RowHeadersWidth = 51;
-            this.재고관리.RowTemplate.Height = 27;
-            this.재고관리.Size = new System.Drawing.Size(1336, 610);
-            this.재고관리.TabIndex = 0;
+            this.상품관리.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.상품관리.ContextMenuStrip = this.contextMenuStrip1;
+            this.상품관리.Location = new System.Drawing.Point(230, 61);
+            this.상품관리.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
+            this.상품관리.Name = "상품관리";
+            this.상품관리.RowHeadersWidth = 51;
+            this.상품관리.RowTemplate.Height = 27;
+            this.상품관리.Size = new System.Drawing.Size(1336, 610);
+            this.상품관리.TabIndex = 0;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.추가ToolStripMenuItem,
+            this.상품수정ToolStripMenuItem,
+            this.상품삭제ToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(163, 100);
+            // 
+            // 추가ToolStripMenuItem
+            // 
+            this.추가ToolStripMenuItem.Name = "추가ToolStripMenuItem";
+            this.추가ToolStripMenuItem.Size = new System.Drawing.Size(162, 32);
+            this.추가ToolStripMenuItem.Text = "상품 추가";
+            // 
+            // 상품수정ToolStripMenuItem
+            // 
+            this.상품수정ToolStripMenuItem.Name = "상품수정ToolStripMenuItem";
+            this.상품수정ToolStripMenuItem.Size = new System.Drawing.Size(162, 32);
+            this.상품수정ToolStripMenuItem.Text = "상품 수정";
+            // 
+            // 상품삭제ToolStripMenuItem
+            // 
+            this.상품삭제ToolStripMenuItem.Name = "상품삭제ToolStripMenuItem";
+            this.상품삭제ToolStripMenuItem.Size = new System.Drawing.Size(162, 32);
+            this.상품삭제ToolStripMenuItem.Text = "상품 삭제";
             // 
             // 카테고리
             // 
@@ -82,6 +111,8 @@
             this.검색창.Size = new System.Drawing.Size(296, 28);
             this.검색창.TabIndex = 4;
             this.검색창.Text = "검색어를 입력하세요.";
+            this.검색창.Enter += new System.EventHandler(this.검색창_Enter);
+            this.검색창.Leave += new System.EventHandler(this.검색창_Leave);
             // 
             // 검색버튼
             // 
@@ -92,6 +123,7 @@
             this.검색버튼.TabIndex = 5;
             this.검색버튼.Text = "검색";
             this.검색버튼.UseVisualStyleBackColor = true;
+            this.검색버튼.Click += new System.EventHandler(this.검색버튼_Click);
             // 
             // 버튼생성
             // 
@@ -143,7 +175,6 @@
             this.추가.TabIndex = 17;
             this.추가.Text = "추가";
             this.추가.UseVisualStyleBackColor = true;
-            this.추가.Click += new System.EventHandler(this.추가_Click);
             // 
             // 수정
             // 
@@ -165,15 +196,16 @@
             this.삭제.Text = "삭제";
             this.삭제.UseVisualStyleBackColor = true;
             // 
-            // 판매
+            // 재고
             // 
-            this.판매.Location = new System.Drawing.Point(1331, 765);
-            this.판매.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this.판매.Name = "판매";
-            this.판매.Size = new System.Drawing.Size(110, 78);
-            this.판매.TabIndex = 20;
-            this.판매.Text = "판매";
-            this.판매.UseVisualStyleBackColor = true;
+            this.재고.Location = new System.Drawing.Point(1331, 765);
+            this.재고.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.재고.Name = "재고";
+            this.재고.Size = new System.Drawing.Size(110, 78);
+            this.재고.TabIndex = 20;
+            this.재고.Text = "재고";
+            this.재고.UseVisualStyleBackColor = true;
+            this.재고.Click += new System.EventHandler(this.재고버튼_Click);
             // 
             // 시작날짜
             // 
@@ -181,34 +213,6 @@
             this.시작날짜.Name = "시작날짜";
             this.시작날짜.Size = new System.Drawing.Size(200, 28);
             this.시작날짜.TabIndex = 21;
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.추가ToolStripMenuItem,
-            this.상품수정ToolStripMenuItem,
-            this.상품삭제ToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(163, 100);
-            // 
-            // 추가ToolStripMenuItem
-            // 
-            this.추가ToolStripMenuItem.Name = "추가ToolStripMenuItem";
-            this.추가ToolStripMenuItem.Size = new System.Drawing.Size(162, 32);
-            this.추가ToolStripMenuItem.Text = "상품 추가";
-            // 
-            // 상품수정ToolStripMenuItem
-            // 
-            this.상품수정ToolStripMenuItem.Name = "상품수정ToolStripMenuItem";
-            this.상품수정ToolStripMenuItem.Size = new System.Drawing.Size(162, 32);
-            this.상품수정ToolStripMenuItem.Text = "상품 수정";
-            // 
-            // 상품삭제ToolStripMenuItem
-            // 
-            this.상품삭제ToolStripMenuItem.Name = "상품삭제ToolStripMenuItem";
-            this.상품삭제ToolStripMenuItem.Size = new System.Drawing.Size(162, 32);
-            this.상품삭제ToolStripMenuItem.Text = "상품 삭제";
             // 
             // 종료날짜
             // 
@@ -235,7 +239,7 @@
             this.Controls.Add(this.기간선택);
             this.Controls.Add(this.종료날짜);
             this.Controls.Add(this.시작날짜);
-            this.Controls.Add(this.판매);
+            this.Controls.Add(this.재고);
             this.Controls.Add(this.삭제);
             this.Controls.Add(this.수정);
             this.Controls.Add(this.추가);
@@ -246,11 +250,11 @@
             this.Controls.Add(this.검색버튼);
             this.Controls.Add(this.검색창);
             this.Controls.Add(this.카테고리);
-            this.Controls.Add(this.재고관리);
+            this.Controls.Add(this.상품관리);
             this.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
             this.Name = "상품재고관리";
             this.Text = "상품재고관리";
-            ((System.ComponentModel.ISupportInitialize)(this.재고관리)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.상품관리)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -259,7 +263,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView 재고관리;
+        private System.Windows.Forms.DataGridView 상품관리;
         private System.Windows.Forms.ComboBox 카테고리;
         private System.Windows.Forms.TextBox 검색창;
         private System.Windows.Forms.Button 검색버튼;
@@ -270,7 +274,7 @@
         private System.Windows.Forms.Button 추가;
         private System.Windows.Forms.Button 수정;
         private System.Windows.Forms.Button 삭제;
-        private System.Windows.Forms.Button 판매;
+        private System.Windows.Forms.Button 재고;
         private System.Windows.Forms.DateTimePicker 시작날짜;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 추가ToolStripMenuItem;

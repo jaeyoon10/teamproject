@@ -35,8 +35,8 @@
             this.검색창 = new System.Windows.Forms.TextBox();
             this.카테고리 = new System.Windows.Forms.ComboBox();
             this.전체기간 = new System.Windows.Forms.ComboBox();
-            this.재고관리 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.재고관리)).BeginInit();
+            this.판매내역 = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.판매내역)).BeginInit();
             this.SuspendLayout();
             // 
             // Report_text
@@ -127,16 +127,16 @@
             this.전체기간.TabIndex = 22;
             this.전체기간.Text = "전체기간";
             // 
-            // 재고관리
+            // 판매내역
             // 
-            this.재고관리.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.재고관리.Location = new System.Drawing.Point(281, 62);
-            this.재고관리.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.재고관리.Name = "재고관리";
-            this.재고관리.RowHeadersWidth = 51;
-            this.재고관리.RowTemplate.Height = 27;
-            this.재고관리.Size = new System.Drawing.Size(1069, 501);
-            this.재고관리.TabIndex = 21;
+            this.판매내역.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.판매내역.Location = new System.Drawing.Point(281, 62);
+            this.판매내역.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.판매내역.Name = "판매내역";
+            this.판매내역.RowHeadersWidth = 51;
+            this.판매내역.RowTemplate.Height = 27;
+            this.판매내역.Size = new System.Drawing.Size(1069, 501);
+            this.판매내역.TabIndex = 21;
             // 
             // Form5
             // 
@@ -147,7 +147,7 @@
             this.Controls.Add(this.검색창);
             this.Controls.Add(this.카테고리);
             this.Controls.Add(this.전체기간);
-            this.Controls.Add(this.재고관리);
+            this.Controls.Add(this.판매내역);
             this.Controls.Add(this.Report_text);
             this.Controls.Add(this.Sale_text);
             this.Controls.Add(this.Pmanage_text);
@@ -155,7 +155,7 @@
             this.Name = "Form5";
             this.Text = "Form5";
             this.Load += new System.EventHandler(this.Form5_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.재고관리)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.판매내역)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -170,6 +170,6 @@
         private System.Windows.Forms.TextBox 검색창;
         private System.Windows.Forms.ComboBox 카테고리;
         private System.Windows.Forms.ComboBox 전체기간;
-        private System.Windows.Forms.DataGridView 재고관리;
+        private System.Windows.Forms.DataGridView 판매내역;
     }
 }
