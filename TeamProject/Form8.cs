@@ -17,6 +17,7 @@ namespace TeamProject
             LoadStockData(); // 재고 데이터 로드
         }
 
+
         private void LoadStockData()
         {
             try
@@ -42,24 +43,7 @@ namespace TeamProject
         {
             LoadStockData();
         }
-        private void LoadStockData()
-        {
-                string query = @"
-                    SELECT s.stock_id, r.product_name, s.stock_quantity, s.expiration_date
-                    FROM stock s
-                    JOIN registration r ON s.registration_id = r.registration_id";
-
-                
-                DataTable stockTable = new DataTable();
-            if (stockTable != null)
-            {
-                재고관리.DataSource = stockTable; // 그리드뷰에 데이터 바인딩
-            }
-            else
-            {
-                MessageBox.Show("데이터를 불러오지 못했습니다.");
-            }
-        }
+       
 
         private void 판매_Click(object sender, EventArgs e)
         {

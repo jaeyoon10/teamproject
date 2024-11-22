@@ -17,7 +17,7 @@ public class DBClass
     {
         try
         {
-            string connectionString = "User Id=teamplay; Password=2163; Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=xe)));";
+            string connectionString = "User Id=team; Password=1234; Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=xe)));";
             dBAdapter = new OracleDataAdapter("SELECT * FROM storeowner", connectionString);
             myCommandBuilder = new OracleCommandBuilder(dBAdapter);
             dS = new DataSet();
@@ -70,11 +70,13 @@ public class DBClass
             r.registration_price AS 등록가격, 
             r.category AS 카테고리, 
             r.product_name AS 상품명, 
-            r.expiration_date AS 유통기한, 
+            s.expiration_date AS 유통기한, 
             r.remarks AS 비고, 
             s.name AS 공급업체명 -- 공급업체명을 가져옴
         FROM 
             registration r
+        LEFT JOIN 
+            stock s ON r.registration_id = s.registration_id -- stock과 조인
         LEFT JOIN 
             supplier s ON r.supplier_id = s.supplier_id
         {filterQuery}";
