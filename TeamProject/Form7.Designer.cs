@@ -109,6 +109,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(906, 710);
             this.Name = "Form7";
             this.Text = "Form7";
             this.ResumeLayout(false);
