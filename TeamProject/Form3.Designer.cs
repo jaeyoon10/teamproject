@@ -56,12 +56,12 @@
             // 
             this.상품관리.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.상품관리.ContextMenuStrip = this.contextMenuStrip1;
-            this.상품관리.Location = new System.Drawing.Point(230, 61);
-            this.상품관리.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
+            this.상품관리.Location = new System.Drawing.Point(184, 51);
+            this.상품관리.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.상품관리.Name = "상품관리";
             this.상품관리.RowHeadersWidth = 51;
             this.상품관리.RowTemplate.Height = 27;
-            this.상품관리.Size = new System.Drawing.Size(1336, 610);
+            this.상품관리.Size = new System.Drawing.Size(1069, 509);
             this.상품관리.TabIndex = 0;
             // 
             // contextMenuStrip1
@@ -72,43 +72,43 @@
             this.상품수정ToolStripMenuItem,
             this.상품삭제ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(163, 100);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(144, 76);
             // 
             // 추가ToolStripMenuItem
             // 
             this.추가ToolStripMenuItem.Name = "추가ToolStripMenuItem";
-            this.추가ToolStripMenuItem.Size = new System.Drawing.Size(162, 32);
+            this.추가ToolStripMenuItem.Size = new System.Drawing.Size(143, 24);
             this.추가ToolStripMenuItem.Text = "상품 추가";
             // 
             // 상품수정ToolStripMenuItem
             // 
             this.상품수정ToolStripMenuItem.Name = "상품수정ToolStripMenuItem";
-            this.상품수정ToolStripMenuItem.Size = new System.Drawing.Size(162, 32);
+            this.상품수정ToolStripMenuItem.Size = new System.Drawing.Size(143, 24);
             this.상품수정ToolStripMenuItem.Text = "상품 수정";
             // 
             // 상품삭제ToolStripMenuItem
             // 
             this.상품삭제ToolStripMenuItem.Name = "상품삭제ToolStripMenuItem";
-            this.상품삭제ToolStripMenuItem.Size = new System.Drawing.Size(162, 32);
+            this.상품삭제ToolStripMenuItem.Size = new System.Drawing.Size(143, 24);
             this.상품삭제ToolStripMenuItem.Text = "상품 삭제";
             // 
             // 카테고리
             // 
             this.카테고리.FormattingEnabled = true;
-            this.카테고리.Location = new System.Drawing.Point(137, 813);
-            this.카테고리.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
+            this.카테고리.Location = new System.Drawing.Point(110, 678);
+            this.카테고리.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.카테고리.Name = "카테고리";
-            this.카테고리.Size = new System.Drawing.Size(105, 26);
+            this.카테고리.Size = new System.Drawing.Size(85, 23);
             this.카테고리.TabIndex = 2;
             this.카테고리.Text = "카테고리";
             // 
             // 검색창
             // 
             this.검색창.ForeColor = System.Drawing.Color.Gray;
-            this.검색창.Location = new System.Drawing.Point(848, 816);
-            this.검색창.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
+            this.검색창.Location = new System.Drawing.Point(679, 680);
+            this.검색창.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.검색창.Name = "검색창";
-            this.검색창.Size = new System.Drawing.Size(296, 28);
+            this.검색창.Size = new System.Drawing.Size(237, 25);
             this.검색창.TabIndex = 4;
             this.검색창.Text = "검색어를 입력하세요.";
             this.검색창.Enter += new System.EventHandler(this.검색창_Enter);
@@ -116,10 +116,10 @@
             // 
             // 검색버튼
             // 
-            this.검색버튼.Location = new System.Drawing.Point(1156, 813);
-            this.검색버튼.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
+            this.검색버튼.Location = new System.Drawing.Point(925, 678);
+            this.검색버튼.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.검색버튼.Name = "검색버튼";
-            this.검색버튼.Size = new System.Drawing.Size(101, 30);
+            this.검색버튼.Size = new System.Drawing.Size(81, 25);
             this.검색버튼.TabIndex = 5;
             this.검색버튼.Text = "검색";
             this.검색버튼.UseVisualStyleBackColor = true;
@@ -127,20 +127,20 @@
             // 
             // 버튼생성
             // 
-            this.버튼생성.Location = new System.Drawing.Point(733, 727);
-            this.버튼생성.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
+            this.버튼생성.Location = new System.Drawing.Point(586, 606);
+            this.버튼생성.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.버튼생성.Name = "버튼생성";
-            this.버튼생성.Size = new System.Drawing.Size(250, 46);
+            this.버튼생성.Size = new System.Drawing.Size(200, 39);
             this.버튼생성.TabIndex = 12;
             // 
             // Report_text
             // 
             this.Report_text.AutoSize = true;
             this.Report_text.Font = new System.Drawing.Font("궁서체", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Report_text.Location = new System.Drawing.Point(25, 442);
-            this.Report_text.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Report_text.Location = new System.Drawing.Point(21, 369);
+            this.Report_text.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.Report_text.Name = "Report_text";
-            this.Report_text.Size = new System.Drawing.Size(178, 30);
+            this.Report_text.Size = new System.Drawing.Size(155, 25);
             this.Report_text.TabIndex = 16;
             this.Report_text.Text = "보고서 관리";
             // 
@@ -148,60 +148,61 @@
             // 
             this.Sale_text.AutoSize = true;
             this.Sale_text.Font = new System.Drawing.Font("궁서체", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Sale_text.Location = new System.Drawing.Point(38, 274);
-            this.Sale_text.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Sale_text.Location = new System.Drawing.Point(31, 229);
+            this.Sale_text.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.Sale_text.Name = "Sale_text";
-            this.Sale_text.Size = new System.Drawing.Size(148, 30);
+            this.Sale_text.Size = new System.Drawing.Size(129, 25);
             this.Sale_text.TabIndex = 15;
             this.Sale_text.Text = "판매 내역";
+            this.Sale_text.Click += new System.EventHandler(this.Sale_text_Click);
             // 
             // Pmanage_text
             // 
             this.Pmanage_text.AutoSize = true;
             this.Pmanage_text.Font = new System.Drawing.Font("궁서체", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Pmanage_text.Location = new System.Drawing.Point(38, 106);
-            this.Pmanage_text.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Pmanage_text.Location = new System.Drawing.Point(31, 89);
+            this.Pmanage_text.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.Pmanage_text.Name = "Pmanage_text";
-            this.Pmanage_text.Size = new System.Drawing.Size(148, 30);
+            this.Pmanage_text.Size = new System.Drawing.Size(129, 25);
             this.Pmanage_text.TabIndex = 14;
             this.Pmanage_text.Text = "상품 관리";
             // 
             // 추가
             // 
-            this.추가.Location = new System.Drawing.Point(1216, 697);
-            this.추가.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
+            this.추가.Location = new System.Drawing.Point(973, 581);
+            this.추가.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.추가.Name = "추가";
-            this.추가.Size = new System.Drawing.Size(96, 26);
+            this.추가.Size = new System.Drawing.Size(77, 21);
             this.추가.TabIndex = 17;
             this.추가.Text = "추가";
             this.추가.UseVisualStyleBackColor = true;
             // 
             // 수정
             // 
-            this.수정.Location = new System.Drawing.Point(1344, 697);
-            this.수정.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
+            this.수정.Location = new System.Drawing.Point(1075, 581);
+            this.수정.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.수정.Name = "수정";
-            this.수정.Size = new System.Drawing.Size(94, 26);
+            this.수정.Size = new System.Drawing.Size(75, 21);
             this.수정.TabIndex = 18;
             this.수정.Text = "수정";
             this.수정.UseVisualStyleBackColor = true;
             // 
             // 삭제
             // 
-            this.삭제.Location = new System.Drawing.Point(1472, 697);
-            this.삭제.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
+            this.삭제.Location = new System.Drawing.Point(1177, 581);
+            this.삭제.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.삭제.Name = "삭제";
-            this.삭제.Size = new System.Drawing.Size(94, 26);
+            this.삭제.Size = new System.Drawing.Size(75, 21);
             this.삭제.TabIndex = 19;
             this.삭제.Text = "삭제";
             this.삭제.UseVisualStyleBackColor = true;
             // 
             // 재고
             // 
-            this.재고.Location = new System.Drawing.Point(1331, 765);
-            this.재고.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.재고.Location = new System.Drawing.Point(1065, 638);
+            this.재고.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.재고.Name = "재고";
-            this.재고.Size = new System.Drawing.Size(110, 78);
+            this.재고.Size = new System.Drawing.Size(88, 65);
             this.재고.TabIndex = 20;
             this.재고.Text = "재고";
             this.재고.UseVisualStyleBackColor = true;
@@ -209,33 +210,36 @@
             // 
             // 시작날짜
             // 
-            this.시작날짜.Location = new System.Drawing.Point(269, 812);
+            this.시작날짜.Location = new System.Drawing.Point(215, 676);
+            this.시작날짜.Margin = new System.Windows.Forms.Padding(2);
             this.시작날짜.Name = "시작날짜";
-            this.시작날짜.Size = new System.Drawing.Size(200, 28);
+            this.시작날짜.Size = new System.Drawing.Size(161, 25);
             this.시작날짜.TabIndex = 21;
             // 
             // 종료날짜
             // 
-            this.종료날짜.Location = new System.Drawing.Point(497, 812);
+            this.종료날짜.Location = new System.Drawing.Point(398, 676);
+            this.종료날짜.Margin = new System.Windows.Forms.Padding(2);
             this.종료날짜.Name = "종료날짜";
-            this.종료날짜.Size = new System.Drawing.Size(200, 28);
+            this.종료날짜.Size = new System.Drawing.Size(161, 25);
             this.종료날짜.TabIndex = 22;
             // 
             // 기간선택
             // 
             this.기간선택.AutoSize = true;
-            this.기간선택.Location = new System.Drawing.Point(715, 815);
+            this.기간선택.Location = new System.Drawing.Point(571, 679);
+            this.기간선택.Margin = new System.Windows.Forms.Padding(2);
             this.기간선택.Name = "기간선택";
-            this.기간선택.Size = new System.Drawing.Size(112, 22);
+            this.기간선택.Size = new System.Drawing.Size(94, 19);
             this.기간선택.TabIndex = 23;
             this.기간선택.Text = "기간 선택";
             this.기간선택.UseVisualStyleBackColor = true;
             // 
             // 상품재고관리
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1608, 888);
+            this.ClientSize = new System.Drawing.Size(1294, 728);
             this.Controls.Add(this.기간선택);
             this.Controls.Add(this.종료날짜);
             this.Controls.Add(this.시작날짜);
@@ -251,7 +255,7 @@
             this.Controls.Add(this.검색창);
             this.Controls.Add(this.카테고리);
             this.Controls.Add(this.상품관리);
-            this.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
+            this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "상품재고관리";
             this.Text = "상품재고관리";
             ((System.ComponentModel.ISupportInitialize)(this.상품관리)).EndInit();

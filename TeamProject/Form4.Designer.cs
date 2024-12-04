@@ -29,15 +29,25 @@
         private void InitializeComponent()
         {
             this.수정 = new System.Windows.Forms.Label();
-            this.상품명 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.상품가격 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.수정버튼 = new System.Windows.Forms.Button();
+            this.점주ID = new System.Windows.Forms.TextBox();
+            this.공급업체 = new System.Windows.Forms.TextBox();
+            this.공급_업체 = new System.Windows.Forms.Label();
+            this.점주 = new System.Windows.Forms.Label();
+            this.유통기한 = new System.Windows.Forms.DateTimePicker();
+            this.label6 = new System.Windows.Forms.Label();
+            this.등록ID = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.상품이름 = new System.Windows.Forms.TextBox();
+            this.Label5 = new System.Windows.Forms.Label();
+            this.비고 = new System.Windows.Forms.TextBox();
+            this.카테고리 = new System.Windows.Forms.ComboBox();
+            this.등록가격 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.상품수량 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // 수정
@@ -50,20 +60,125 @@
             this.수정.TabIndex = 0;
             this.수정.Text = "수정";
             // 
-            // 상품명
+            // 수정버튼
             // 
-            this.상품명.AutoSize = true;
-            this.상품명.Font = new System.Drawing.Font("궁서체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.상품명.Location = new System.Drawing.Point(85, 126);
-            this.상품명.Name = "상품명";
-            this.상품명.Size = new System.Drawing.Size(69, 20);
-            this.상품명.TabIndex = 2;
-            this.상품명.Text = "상품명";
+            this.수정버튼.Location = new System.Drawing.Point(265, 608);
+            this.수정버튼.Margin = new System.Windows.Forms.Padding(2);
+            this.수정버튼.Name = "수정버튼";
+            this.수정버튼.Size = new System.Drawing.Size(100, 55);
+            this.수정버튼.TabIndex = 52;
+            this.수정버튼.Text = "수정";
+            this.수정버튼.UseVisualStyleBackColor = true;
+            this.수정버튼.Click += new System.EventHandler(this.수정버튼_Click);
             // 
-            // comboBox1
+            // 점주ID
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.점주ID.Location = new System.Drawing.Point(147, 280);
+            this.점주ID.Margin = new System.Windows.Forms.Padding(2);
+            this.점주ID.Name = "점주ID";
+            this.점주ID.Size = new System.Drawing.Size(149, 25);
+            this.점주ID.TabIndex = 79;
+            // 
+            // 공급업체
+            // 
+            this.공급업체.Location = new System.Drawing.Point(147, 231);
+            this.공급업체.Margin = new System.Windows.Forms.Padding(2);
+            this.공급업체.Name = "공급업체";
+            this.공급업체.Size = new System.Drawing.Size(149, 25);
+            this.공급업체.TabIndex = 78;
+            // 
+            // 공급_업체
+            // 
+            this.공급_업체.AutoSize = true;
+            this.공급_업체.Font = new System.Drawing.Font("궁서체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.공급_업체.Location = new System.Drawing.Point(41, 235);
+            this.공급_업체.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.공급_업체.Name = "공급_업체";
+            this.공급_업체.Size = new System.Drawing.Size(89, 20);
+            this.공급_업체.TabIndex = 77;
+            this.공급_업체.Text = "공급업체";
+            // 
+            // 점주
+            // 
+            this.점주.AutoSize = true;
+            this.점주.Font = new System.Drawing.Font("궁서체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.점주.Location = new System.Drawing.Point(50, 277);
+            this.점주.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.점주.Name = "점주";
+            this.점주.Size = new System.Drawing.Size(79, 20);
+            this.점주.TabIndex = 76;
+            this.점주.Text = "점주 ID";
+            // 
+            // 유통기한
+            // 
+            this.유통기한.Location = new System.Drawing.Point(147, 372);
+            this.유통기한.Margin = new System.Windows.Forms.Padding(2);
+            this.유통기한.Name = "유통기한";
+            this.유통기한.Size = new System.Drawing.Size(161, 25);
+            this.유통기한.TabIndex = 75;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("궁서체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label6.Location = new System.Drawing.Point(40, 373);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(89, 20);
+            this.label6.TabIndex = 74;
+            this.label6.Text = "유통기한";
+            // 
+            // 등록ID
+            // 
+            this.등록ID.Location = new System.Drawing.Point(147, 80);
+            this.등록ID.Margin = new System.Windows.Forms.Padding(2);
+            this.등록ID.Name = "등록ID";
+            this.등록ID.Size = new System.Drawing.Size(149, 25);
+            this.등록ID.TabIndex = 73;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("궁서체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label1.Location = new System.Drawing.Point(50, 83);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(79, 20);
+            this.label1.TabIndex = 72;
+            this.label1.Text = "등록 ID";
+            // 
+            // 상품이름
+            // 
+            this.상품이름.Location = new System.Drawing.Point(147, 131);
+            this.상품이름.Margin = new System.Windows.Forms.Padding(2);
+            this.상품이름.Name = "상품이름";
+            this.상품이름.Size = new System.Drawing.Size(149, 25);
+            this.상품이름.TabIndex = 71;
+            // 
+            // Label5
+            // 
+            this.Label5.AutoSize = true;
+            this.Label5.Font = new System.Drawing.Font("궁서체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label5.Location = new System.Drawing.Point(40, 135);
+            this.Label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Label5.Name = "Label5";
+            this.Label5.Size = new System.Drawing.Size(89, 20);
+            this.Label5.TabIndex = 70;
+            this.Label5.Text = "상품이름";
+            // 
+            // 비고
+            // 
+            this.비고.Location = new System.Drawing.Point(147, 495);
+            this.비고.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
+            this.비고.Multiline = true;
+            this.비고.Name = "비고";
+            this.비고.Size = new System.Drawing.Size(383, 81);
+            this.비고.TabIndex = 69;
+            // 
+            // 카테고리
+            // 
+            this.카테고리.FormattingEnabled = true;
+            this.카테고리.Items.AddRange(new object[] {
             "음료",
             "스낵",
             "즉석식품",
@@ -74,94 +189,96 @@
             "담배",
             "뷰티",
             "기타"});
-            this.comboBox1.Location = new System.Drawing.Point(191, 240);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(150, 23);
-            this.comboBox1.TabIndex = 46;
+            this.카테고리.Location = new System.Drawing.Point(147, 327);
+            this.카테고리.Margin = new System.Windows.Forms.Padding(2);
+            this.카테고리.Name = "카테고리";
+            this.카테고리.Size = new System.Drawing.Size(149, 23);
+            this.카테고리.TabIndex = 68;
             // 
-            // label3
+            // 등록가격
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("궁서체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label3.Location = new System.Drawing.Point(85, 240);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(89, 20);
-            this.label3.TabIndex = 45;
-            this.label3.Text = "카테고리";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(191, 177);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(150, 25);
-            this.textBox2.TabIndex = 48;
-            // 
-            // 상품가격
-            // 
-            this.상품가격.AutoSize = true;
-            this.상품가격.Font = new System.Drawing.Font("궁서체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.상품가격.Location = new System.Drawing.Point(85, 182);
-            this.상품가격.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.상품가격.Name = "상품가격";
-            this.상품가격.Size = new System.Drawing.Size(89, 20);
-            this.상품가격.TabIndex = 47;
-            this.상품가격.Text = "상품가격";
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(191, 318);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox4.Multiline = true;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(383, 81);
-            this.textBox4.TabIndex = 50;
+            this.등록가격.Location = new System.Drawing.Point(147, 186);
+            this.등록가격.Margin = new System.Windows.Forms.Padding(2);
+            this.등록가격.Name = "등록가격";
+            this.등록가격.Size = new System.Drawing.Size(149, 25);
+            this.등록가격.TabIndex = 67;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("궁서", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label4.Location = new System.Drawing.Point(85, 318);
+            this.label4.Location = new System.Drawing.Point(79, 495);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(49, 20);
-            this.label4.TabIndex = 49;
+            this.label4.TabIndex = 66;
             this.label4.Text = "비고";
             // 
-            // textBox1
+            // label3
             // 
-            this.textBox1.Location = new System.Drawing.Point(191, 121);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(150, 25);
-            this.textBox1.TabIndex = 51;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("궁서체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label3.Location = new System.Drawing.Point(40, 327);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(89, 20);
+            this.label3.TabIndex = 65;
+            this.label3.Text = "카테고리";
             // 
-            // 수정버튼
+            // label2
             // 
-            this.수정버튼.Location = new System.Drawing.Point(273, 466);
-            this.수정버튼.Margin = new System.Windows.Forms.Padding(2);
-            this.수정버튼.Name = "수정버튼";
-            this.수정버튼.Size = new System.Drawing.Size(100, 55);
-            this.수정버튼.TabIndex = 52;
-            this.수정버튼.Text = "수정";
-            this.수정버튼.UseVisualStyleBackColor = true;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("궁서체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label2.Location = new System.Drawing.Point(41, 186);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(89, 20);
+            this.label2.TabIndex = 64;
+            this.label2.Text = "등록가격";
+            // 
+            // 상품수량
+            // 
+            this.상품수량.Location = new System.Drawing.Point(147, 426);
+            this.상품수량.Margin = new System.Windows.Forms.Padding(2);
+            this.상품수량.Name = "상품수량";
+            this.상품수량.Size = new System.Drawing.Size(149, 25);
+            this.상품수량.TabIndex = 81;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("궁서체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label7.Location = new System.Drawing.Point(41, 426);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(99, 20);
+            this.label7.TabIndex = 80;
+            this.label7.Text = "상품 수량";
             // 
             // 수정창
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(623, 614);
-            this.Controls.Add(this.수정버튼);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.textBox4);
+            this.ClientSize = new System.Drawing.Size(591, 697);
+            this.Controls.Add(this.상품수량);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.점주ID);
+            this.Controls.Add(this.공급업체);
+            this.Controls.Add(this.공급_업체);
+            this.Controls.Add(this.점주);
+            this.Controls.Add(this.유통기한);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.등록ID);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.상품이름);
+            this.Controls.Add(this.Label5);
+            this.Controls.Add(this.비고);
+            this.Controls.Add(this.카테고리);
+            this.Controls.Add(this.등록가격);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.상품가격);
-            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.상품명);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.수정버튼);
             this.Controls.Add(this.수정);
             this.Name = "수정창";
             this.Text = "수정";
@@ -173,14 +290,24 @@
         #endregion
 
         private System.Windows.Forms.Label 수정;
-        private System.Windows.Forms.Label 상품명;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label 상품가격;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button 수정버튼;
+        private System.Windows.Forms.TextBox 점주ID;
+        private System.Windows.Forms.TextBox 공급업체;
+        private System.Windows.Forms.Label 공급_업체;
+        private System.Windows.Forms.Label 점주;
+        private System.Windows.Forms.DateTimePicker 유통기한;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox 등록ID;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox 상품이름;
+        private System.Windows.Forms.Label Label5;
+        private System.Windows.Forms.TextBox 비고;
+        private System.Windows.Forms.ComboBox 카테고리;
+        private System.Windows.Forms.TextBox 등록가격;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox 상품수량;
+        private System.Windows.Forms.Label label7;
     }
 }

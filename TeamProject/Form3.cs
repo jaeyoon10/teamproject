@@ -20,10 +20,26 @@ namespace TeamProject
             InitializeContextMenu(); // ContextMenuStrip 초기화
         }
 
-        private void LoadRegistrationData(string filterQuery = "")
+        public void LoadRegistrationData(string filterQuery = "")
         {
-            DataTable registrationData = db.GetRegistrationData(filterQuery); // 필터 쿼리 적용
-            상품관리.DataSource = registrationData; // DataGridView에 데이터 바인딩
+            try
+            {
+                db.DeleteOutOfStockItems(); // 재고 0인 상품 삭제
+                DataTable registrationData = db.GetRegistrationData(filterQuery);
+
+                if (registrationData == null || registrationData.Rows.Count == 0)
+                {
+                    MessageBox.Show("등록된 상품이 없습니다.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    상품관리.DataSource = registrationData; // DataGridView에 데이터 바인딩
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"데이터 로드 중 오류 발생: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private void InitializeSearchFilters()
         {
@@ -110,9 +126,11 @@ namespace TeamProject
 
         private void OpenForm2ForAdd()
         {
-            Form2 form2 = new Form2();
+            int storeOwnerId = 1; // 현재 점주 ID
+            Form2 form2 = new Form2(storeOwnerId);
+            form2.Owner = this; // Form2에 부모 폼으로 Form3 설정
             form2.FormClosed += (s, e) => LoadRegistrationData(); // 폼 닫힌 후 데이터 갱신
-            form2.ShowDialog();
+            form2.ShowDialog(); // Modal로 Form2 열기
         }
 
 
@@ -120,34 +138,109 @@ namespace TeamProject
         {
             if (상품관리.SelectedRows.Count > 0)
             {
-                int registrationId = Convert.ToInt32(상품관리.SelectedRows[0].Cells["등록ID"].Value);
-                Form2 form2 = new Form2(registrationId);
-                form2.FormClosed += (s, e) => LoadRegistrationData(); // 폼 닫힌 후 데이터 갱신
-                form2.ShowDialog();
+                if (상품관리.SelectedRows.Count > 0)
+                {
+                    try
+                    {
+                        // 선택된 행의 등록 ID 가져오기
+                        int registrationId = Convert.ToInt32(상품관리.SelectedRows[0].Cells["등록ID"].Value);
+
+                        // 연결 확인 및 열기
+                        if (db.Connection.State != ConnectionState.Open)
+                        {
+                            db.Connection.Open();
+                        }
+
+                        // 수정창 호출
+                        수정창 editForm = new 수정창(registrationId);
+                        editForm.Owner = this; // Form3을 부모 폼으로 설정
+                        editForm.FormClosed += (s, e) => LoadRegistrationData(); // 폼 닫힌 후 데이터 새로고침
+                        editForm.ShowDialog(); // 수정창 열기
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"수정 작업 중 오류 발생: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("수정할 상품을 선택하세요.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
 
-
+        private void OpenForm4ForEdit()
+        {
+            if (상품관리.SelectedRows.Count > 0)
+            {
+                int registrationId = Convert.ToInt32(상품관리.SelectedRows[0].Cells["등록ID"].Value);
+                수정창 editForm = new 수정창(registrationId);
+                editForm.Owner = this;
+                editForm.FormClosed += (s, e) => LoadRegistrationData();
+                editForm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("수정할 상품을 선택하세요.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
 
         private void DeleteSelectedRegistration()
         {
             if (상품관리.SelectedRows.Count > 0)
             {
-                int registrationId = Convert.ToInt32(상품관리.SelectedRows[0].Cells["registration_id"].Value);
-                if (MessageBox.Show("정말 삭제하시겠습니까?", "삭제 확인", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                try
                 {
-                    try
+                    // 선택된 행의 등록 ID 가져오기
+                    int registrationId = Convert.ToInt32(상품관리.SelectedRows[0].Cells["등록ID"].Value);
+
+                    // 판매 내역에 해당 상품이 있는지 확인
+                    string checkSalesQuery = @"
+                SELECT COUNT(*)
+                FROM sales_history sh
+                JOIN stock s ON sh.stock_id = s.stock_id
+                WHERE s.registration_id = :registrationId";
+
+                    using (OracleCommand cmd = new OracleCommand(checkSalesQuery, db.Connection))
                     {
-                        string query = $"DELETE FROM registration WHERE registration_id = {registrationId}";
-                        OracleCommand cmd = new OracleCommand(query, db.DBAdapter.SelectCommand.Connection);
-                        cmd.ExecuteNonQuery();
-                        LoadRegistrationData(); // 삭제 후 데이터 갱신
+                        cmd.Parameters.Add(new OracleParameter("registrationId", registrationId));
+
+                        object result = cmd.ExecuteScalar();
+
+                        // 반환된 값이 null인 경우 처리
+                        if (result == DBNull.Value)
+                        {
+                            MessageBox.Show("판매 내역을 확인할 수 없습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        // 반환된 값이 숫자 형식인지 확인
+                        if (int.TryParse(result.ToString(), out int salesCount) && salesCount > 0)
+                        {
+                            // 판매 내역에 해당 상품이 존재하면 삭제 불가
+                            MessageBox.Show("이 상품은 판매 내역에 존재하여 삭제할 수 없습니다.", "삭제 불가", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
                     }
-                    catch (Exception ex)
+
+                    // 삭제 확인 메시지
+                    if (MessageBox.Show("정말 삭제하시겠습니까?", "삭제 확인", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                     {
-                        MessageBox.Show("삭제 중 오류 발생: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        // DBClass의 상품 삭제 메서드 호출
+                        db.DeleteProductAndKeepSales(registrationId);
+
+                        // 삭제 후 데이터 새로고침
+                        LoadRegistrationData();
                     }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"삭제 작업 중 오류 발생: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("삭제할 상품을 선택하세요.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -160,6 +253,14 @@ namespace TeamProject
         {
             Form8 form8 = new Form8();
             form8.ShowDialog(); // 재고 테이블 표시 폼 열기
+        }
+
+        private void Sale_text_Click(object sender, EventArgs e)
+        {
+            Form5 form5 = new Form5();
+            form5.Show(); // 재고 테이블 표시 폼 열기
+
+            this.Hide();
         }
     }
 }

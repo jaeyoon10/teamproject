@@ -13,34 +13,44 @@ namespace TeamProject
 {
     public partial class Form5 : Form
     {
+        private DBClass db;
+
         public Form5()
         {
             InitializeComponent();
-            InitializeSearchBox();
-        }
-
-        private void Form5_Load(object sender, EventArgs e)
-        {
+            db = new DBClass();
             LoadSalesHistory();
         }
+
         private void LoadSalesHistory()
         {
-            using (var connection = new OracleConnection("Your Connection String"))
+            try
             {
-                connection.Open();
                 string query = @"
-                SELECT sh.sales_id, sh.sale_time, sh.quantity, sh.total_sales_amount, 
-                       m.name AS member_name, m.card_number, r.product_name
-                FROM sales_history sh
-                JOIN stock s ON sh.stock_id = s.stock_id
-                JOIN registration r ON s.registration_id = r.registration_id
-                JOIN member m ON sh.member_id = m.member_id";
+            SELECT 
+                sh.sales_id AS 판매ID,
+                sh.sale_time AS 판매시간,
+                sh.quantity AS 판매수량,
+                m.name AS 회원명,
+                s.product_name AS 상품명  -- 삭제된 상품 이름 그대로 표시
+            FROM 
+                sales_history sh
+            LEFT JOIN member m ON sh.member_id = m.member_id
+            LEFT JOIN stock st ON sh.stock_id = st.stock_id
+            LEFT JOIN registration s ON st.registration_id = s.registration_id
+            WHERE s.product_name IS NOT NULL";  // 상품명이 NULL인 경우는 제외
 
-                OracleDataAdapter adapter = new OracleDataAdapter(query, connection);
-                DataTable salesTable = new DataTable();
-                adapter.Fill(salesTable);
+                DataTable salesHistoryData = new DataTable();
+                using (OracleDataAdapter adapter = new OracleDataAdapter(query, db.Connection))
+                {
+                    adapter.Fill(salesHistoryData);
+                }
 
-                판매내역.DataSource = salesTable;
+                판매내역.DataSource = salesHistoryData; // Form5의 그리드뷰에 바인딩
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"판매 내역 로드 중 오류 발생: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void InitializeSearchBox()
@@ -97,13 +107,6 @@ namespace TeamProject
             this.Hide();
         }
 
-        private void Pregister_text_Click(object sender, EventArgs e)
-        {
-            // Form2 인스턴스를 생성합니다.
-            Form2 form2 = new Form2();
-
-            // Form2를 보여줍니다.
-            form2.Show();
-        }
     }
 }
+

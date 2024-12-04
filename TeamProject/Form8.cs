@@ -13,57 +13,67 @@ namespace TeamProject
         {
             InitializeComponent();
             db = new DBClass();
-            db.DB_Open(); // 데이터베이스 연결
-            LoadStockData(); // 재고 데이터 로드
+            LoadStockData();
         }
 
 
-        private void LoadStockData()
+        public void LoadStockData()
         {
             try
             {
-                // DB에서 재고 데이터 가져오기
-                DataTable stockData = db.GetStockData();
+                db.DeleteOutOfStockItems(); // 재고 0인 상품 삭제
 
-                // DataGridView에 데이터 바인딩
-                재고관리.DataSource = stockData;
+                string query = @"
+            SELECT 
+                s.stock_id AS 재고ID, 
+                r.product_name AS 상품명, 
+                r.category AS 카테고리, 
+                s.stock_quantity AS 수량, 
+                r.expiration_date AS 유통기한,
+                r.remarks AS 비고
+            FROM 
+                stock s
+            JOIN 
+                registration r ON s.registration_id = r.registration_id";
 
-                // DataGridView 설정
-                재고관리.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                재고관리.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                재고관리.ReadOnly = true; // 읽기 전용 설정
+                DataTable stockData = new DataTable();
+                using (OracleDataAdapter adapter = new OracleDataAdapter(query, db.Connection))
+                {
+                    adapter.Fill(stockData);
+                }
+
+                재고관리.DataSource = stockData; // Form8의 재고 그리드뷰
             }
             catch (Exception ex)
             {
-                MessageBox.Show("재고 데이터를 로드할 수 없습니다: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"재고 데이터를 로드하는 중 오류 발생: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        private void InitializeGridView()
+        {
+            재고관리.AutoGenerateColumns = true;
+            재고관리.Columns["수량"].HeaderText = "수량";
+        }
         private void Form8_Load(object sender, EventArgs e)
         {
             LoadStockData();
         }
-       
+
 
         private void 판매_Click(object sender, EventArgs e)
         {
-            if (재고관리.SelectedRows.Count == 0)
+            if (재고관리.SelectedRows.Count > 0)
             {
-                MessageBox.Show("판매할 상품를 선택하세요.");
-                return;
+                string productName = 재고관리.SelectedRows[0].Cells["상품명"].Value.ToString();
+                int stockId = Convert.ToInt32(재고관리.SelectedRows[0].Cells["재고ID"].Value);
+
+                Form7 form7 = new Form7(productName, stockId);
+                form7.ShowDialog();
             }
-
-            // 선택된 행의 데이터 가져오기
-            string productName = 재고관리.SelectedRows[0].Cells["product_name"].Value.ToString();
-            int stockId = Convert.ToInt32(재고관리.SelectedRows[0].Cells["stock_id"].Value);
-
-            // 판매 창 열기
-            Form7 salesForm = new Form7(productName, stockId);
-            salesForm.ShowDialog();
-
-            // 재고 데이터 갱신
-            LoadStockData();
+            else
+            {
+                MessageBox.Show("판매할 상품을 선택하세요.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }
-

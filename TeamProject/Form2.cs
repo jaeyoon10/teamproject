@@ -7,128 +7,124 @@ namespace TeamProject
 {
     public partial class Form2 : Form
     {
-        private int registrationId = -1; // 기본값: 추가 모드
+        private int storeOwnerId;
         private DBClass db;
 
-        public Form2(int registrationId = -1)
+        public Form2(int storeOwnerId)
         {
             InitializeComponent();
-            this.registrationId = registrationId;
+            this.storeOwnerId = storeOwnerId; // 점주 ID 설정
             db = new DBClass();
             db.DB_Open(); // DB 연결
             InitializeFields(); // 필드 초기화
-            if (registrationId != -1)
-                LoadRegistrationData(registrationId); // 수정 모드일 경우 데이터 로드
         }
 
         private void InitializeFields()
         {
-            // 카테고리 초기화
             카테고리.DataSource = new string[] { "음료", "스낵", "즉석식품", "유제품", "가공식품", "생활용품", "주류", "담배", "뷰티", "기타" };
-            카테고리.SelectedIndex = 0; // 기본값 설정
-        }
-
-        private void LoadRegistrationData(int registrationId)
-        {
-            try
-            {
-                string query = $"SELECT r.*, s.name AS supplier_name FROM registration r LEFT JOIN supplier s ON r.supplier_id = s.supplier_id WHERE r.registration_id = {registrationId}";
-                OracleDataAdapter adapter = new OracleDataAdapter(query, db.DBAdapter.SelectCommand.Connection);
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-
-                if (dt.Rows.Count > 0)
-                {
-                    DataRow row = dt.Rows[0];
-                    등록ID.Text = row["registration_id"].ToString();
-                    상품이름.Text = row["product_name"].ToString();
-                    등록가격.Text = row["registration_price"].ToString();
-                    공급업체.Text = row["supplier_name"].ToString(); // 공급업체 이름 표시
-                    카테고리.SelectedItem = row["category"].ToString();
-                    유통기한.Value = Convert.ToDateTime(row["expiration_date"]);
-                    비고.Text = row["remarks"].ToString();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("데이터 로드 중 오류 발생: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            카테고리.SelectedIndex = 0;
         }
 
         private void 등록버튼_Click(object sender, EventArgs e)
         {
-            if (!ValidateInput()) return; // 유효성 검사
-
             try
             {
-                // 공급업체 이름으로 ID 조회
-                int supplierId = GetSupplierIdByName(공급업체.Text);
+                if (!ValidateInput()) return;
+
+                int supplierId = GetOrAddSupplierId(공급업체.Text);
                 if (supplierId == -1)
                 {
                     MessageBox.Show("유효한 공급업체 이름을 입력하세요.", "입력 오류", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                string query;
-                if (registrationId == -1)
+                int registrationId = db.GetNextRegistrationId();
+                int stockQuantity = int.Parse(상품수량.Text.Trim()); // 입력된 수량
+
+                string registrationQuery = $@"
+        INSERT INTO registration (registration_id, product_name, registration_price, category, remarks, storeowner_id, supplier_id, expiration_date)
+        VALUES (:registrationId, :productName, :registrationPrice, :category, :remarks, :storeOwnerId, :supplierId, TO_DATE(:expirationDate, 'YYYY-MM-DD'))";
+
+                string stockQuery = $@"
+        INSERT INTO stock (stock_id, stock_quantity, min_stock_quantity, registration_id)
+        VALUES (stock_seq.NEXTVAL, :stockQuantity, 10, :registrationId)";
+
+                db.DB_Open();
+                using (OracleCommand cmd = new OracleCommand(registrationQuery, db.Connection))
                 {
-                    // 추가 모드
-                    query = $@"
-                    INSERT INTO registration (registration_id, registration_date, product_name, registration_price, category, remarks, storeowner_id, supplier_id, expiration_date)
-                    VALUES (
-                        {등록ID.Text},
-                        TO_DATE('{유통기한.Value:yyyy-MM-dd}', 'YYYY-MM-DD'),
-                        '{상품이름.Text}',
-                        {등록가격.Text},
-                        '{카테고리.SelectedItem}',
-                        '{비고.Text}',
-                        1, -- 점주 ID는 고정값
-                        {supplierId}
-                    )";
-                }
-                else
-                {
-                    // 수정 모드
-                    query = $@"
-                    UPDATE registration
-                    SET 
-                        registration_date = TO_DATE('{유통기한.Value:yyyy-MM-dd}', 'YYYY-MM-DD'),
-                        product_name = '{상품이름.Text}',
-                        registration_price = {등록가격.Text},
-                        category = '{카테고리.SelectedItem}',
-                        remarks = '{비고.Text}',
-                        supplier_id = {supplierId}
-                    WHERE registration_id = {registrationId}";
+                    cmd.Parameters.Add(new OracleParameter("registrationId", registrationId));
+                    cmd.Parameters.Add(new OracleParameter("productName", 상품이름.Text.Trim()));
+                    cmd.Parameters.Add(new OracleParameter("registrationPrice", decimal.Parse(등록가격.Text.Trim())));
+                    cmd.Parameters.Add(new OracleParameter("category", 카테고리.SelectedItem.ToString()));
+                    cmd.Parameters.Add(new OracleParameter("remarks", 비고.Text.Trim()));
+                    cmd.Parameters.Add(new OracleParameter("storeOwnerId", storeOwnerId));
+                    cmd.Parameters.Add(new OracleParameter("supplierId", supplierId));
+                    cmd.Parameters.Add(new OracleParameter("expirationDate", 유통기한.Value.ToString("yyyy-MM-dd")));
+
+                    cmd.ExecuteNonQuery();
                 }
 
-                OracleCommand cmd = new OracleCommand(query, db.DBAdapter.SelectCommand.Connection);
-                cmd.ExecuteNonQuery();
+                using (OracleCommand stockCmd = new OracleCommand(stockQuery, db.Connection))
+                {
+                    stockCmd.Parameters.Add(new OracleParameter("stockQuantity", stockQuantity)); // 입력된 수량
+                    stockCmd.Parameters.Add(new OracleParameter("registrationId", registrationId));
+                    stockCmd.ExecuteNonQuery();
+                }
+
                 MessageBox.Show("성공적으로 저장되었습니다.", "성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                if (Owner is 상품재고관리 parentForm)
+                {
+                    parentForm.LoadRegistrationData(); // 부모 폼 새로고침
+                }
+
                 this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("저장 중 오류 발생: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"저장 중 오류 발생: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                db.DB_Close();
             }
         }
 
-        private int GetSupplierIdByName(string supplierName)
+        private int GetOrAddSupplierId(string supplierName)
         {
             try
             {
-                string query = "SELECT supplier_id FROM supplier WHERE name = :supplierName";
-                OracleCommand cmd = new OracleCommand(query, db.DBAdapter.SelectCommand.Connection);
-                cmd.Parameters.Add(new OracleParameter("supplierName", supplierName));
+                string selectQuery = "SELECT supplier_id FROM supplier WHERE name = :supplierName";
+                using (OracleCommand cmd = new OracleCommand(selectQuery, db.Connection))
+                {
+                    cmd.Parameters.Add(new OracleParameter("supplierName", supplierName.Trim()));
 
-                object result = cmd.ExecuteScalar();
-                if (result != null)
-                    return Convert.ToInt32(result); // 유효한 경우 supplier_id 반환
-                else
-                    return -1; // 유효하지 않은 경우
+                    if (db.Connection.State != ConnectionState.Open)
+                    {
+                        db.Connection.Open();
+                    }
+
+                    object result = cmd.ExecuteScalar();
+                    if (result != null) return Convert.ToInt32(result);
+                }
+
+                string insertQuery = "INSERT INTO supplier (supplier_id, name, contact_info) VALUES (supplier_seq.NEXTVAL, :name, 'Unknown')";
+                using (OracleCommand insertCmd = new OracleCommand(insertQuery, db.Connection))
+                {
+                    insertCmd.Parameters.Add(new OracleParameter("name", supplierName.Trim()));
+                    insertCmd.ExecuteNonQuery();
+                }
+
+                string getIdQuery = "SELECT supplier_seq.CURRVAL FROM DUAL";
+                using (OracleCommand getIdCmd = new OracleCommand(getIdQuery, db.Connection))
+                {
+                    object newId = getIdCmd.ExecuteScalar();
+                    return Convert.ToInt32(newId);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("공급업체 이름 확인 중 오류 발생: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"공급업체 처리 중 오류 발생: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return -1;
             }
         }
@@ -163,7 +159,26 @@ namespace TeamProject
                 return false;
             }
 
+            if (string.IsNullOrWhiteSpace(상품수량.Text) || !int.TryParse(상품수량.Text, out int quantity) || quantity <= 0)
+            {
+                MessageBox.Show("유효한 수량을 입력하세요.", "입력 오류", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                상품수량.Focus();
+                return false;
+            }
+
             return true;
+        }
+
+        private void RefreshParentForm()
+        {
+            if (Owner is 상품재고관리 parentForm)
+            {
+                parentForm.LoadRegistrationData(); // 부모 폼의 데이터를 새로고침
+            }
+            else
+            {
+                MessageBox.Show("부모 폼을 찾을 수 없습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
