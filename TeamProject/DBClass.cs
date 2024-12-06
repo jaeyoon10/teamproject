@@ -366,6 +366,52 @@ public class DBClass
         }
     }
 
+    // 보고서 데이터 가져오기
+    public DataTable GetReportData(string filterQuery = "")
+    {
+        DataTable reportTable = new DataTable();
+        try
+        {
+            DB_Open(); // 데이터베이스 연결 열기
+
+            string query = $@"
+        SELECT 
+            r.report_id AS 보고서ID, 
+            r.output_content AS 출력내용, 
+            r.search_content AS 검색내용, 
+            st.stock_quantity AS 재고수량,
+            s.product_name AS 상품명,
+            sh.sale_time AS 판매시간, 
+            sh.quantity AS 판매수량,
+            m.name AS 회원명
+        FROM 
+            report r
+        LEFT JOIN 
+            stock st ON r.stock_id = st.stock_id
+        LEFT JOIN 
+            registration s ON st.registration_id = s.registration_id
+        LEFT JOIN 
+            sales_history sh ON r.sales_id = sh.sales_id
+        LEFT JOIN 
+            member m ON sh.member_id = m.member_id
+        {filterQuery}";
+
+            using (OracleDataAdapter adapter = new OracleDataAdapter(query, Connection))
+            {
+                adapter.Fill(reportTable);
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"보고서 데이터를 가져오는 중 오류 발생: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        finally
+        {
+            DB_Close(); // 데이터베이스 연결 닫기
+        }
+        return reportTable;
+    }
+
     // 새로운 등록 ID 생성
     public int GetNextRegistrationId()
     {
