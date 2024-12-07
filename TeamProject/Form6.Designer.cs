@@ -41,6 +41,7 @@
             this.Sale_text = new System.Windows.Forms.Label();
             this.Pmanage_text = new System.Windows.Forms.Label();
             this.Pregister_text = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,7 +78,7 @@
             // 
             // 조회
             // 
-            this.조회.Location = new System.Drawing.Point(1099, 12);
+            this.조회.Location = new System.Drawing.Point(1109, 11);
             this.조회.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.조회.Name = "조회";
             this.조회.Size = new System.Drawing.Size(75, 22);
@@ -88,7 +89,7 @@
             // 
             // 출력
             // 
-            this.출력.Location = new System.Drawing.Point(1222, 12);
+            this.출력.Location = new System.Drawing.Point(1207, 11);
             this.출력.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.출력.Name = "출력";
             this.출력.Size = new System.Drawing.Size(75, 22);
@@ -171,11 +172,34 @@
             this.Pregister_text.TabIndex = 17;
             this.Pregister_text.Text = "상품 등록";
             // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "전체",
+            "음료",
+            "스낵",
+            "즉석식품",
+            "유제품 ",
+            "가공식품 ",
+            "생활용품",
+            "주류",
+            "담배",
+            "뷰티",
+            "기타"});
+            this.comboBox1.Location = new System.Drawing.Point(661, 638);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 23);
+            this.comboBox1.TabIndex = 22;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // 보고서
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1449, 730);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.Report_text);
             this.Controls.Add(this.Sale_text);
             this.Controls.Add(this.Pmanage_text);
@@ -211,5 +235,6 @@
         private System.Windows.Forms.Label Sale_text;
         private System.Windows.Forms.Label Pmanage_text;
         private System.Windows.Forms.Label Pregister_text;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

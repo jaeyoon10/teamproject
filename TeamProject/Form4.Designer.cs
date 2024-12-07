@@ -36,8 +36,6 @@
             this.점주 = new System.Windows.Forms.Label();
             this.유통기한 = new System.Windows.Forms.DateTimePicker();
             this.label6 = new System.Windows.Forms.Label();
-            this.등록ID = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.상품이름 = new System.Windows.Forms.TextBox();
             this.Label5 = new System.Windows.Forms.Label();
             this.비고 = new System.Windows.Forms.TextBox();
@@ -62,7 +60,7 @@
             // 
             // 수정버튼
             // 
-            this.수정버튼.Location = new System.Drawing.Point(265, 608);
+            this.수정버튼.Location = new System.Drawing.Point(266, 567);
             this.수정버튼.Margin = new System.Windows.Forms.Padding(2);
             this.수정버튼.Name = "수정버튼";
             this.수정버튼.Size = new System.Drawing.Size(100, 55);
@@ -73,7 +71,7 @@
             // 
             // 점주ID
             // 
-            this.점주ID.Location = new System.Drawing.Point(147, 280);
+            this.점주ID.Location = new System.Drawing.Point(148, 239);
             this.점주ID.Margin = new System.Windows.Forms.Padding(2);
             this.점주ID.Name = "점주ID";
             this.점주ID.Size = new System.Drawing.Size(149, 25);
@@ -81,7 +79,7 @@
             // 
             // 공급업체
             // 
-            this.공급업체.Location = new System.Drawing.Point(147, 231);
+            this.공급업체.Location = new System.Drawing.Point(148, 190);
             this.공급업체.Margin = new System.Windows.Forms.Padding(2);
             this.공급업체.Name = "공급업체";
             this.공급업체.Size = new System.Drawing.Size(149, 25);
@@ -91,7 +89,7 @@
             // 
             this.공급_업체.AutoSize = true;
             this.공급_업체.Font = new System.Drawing.Font("궁서체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.공급_업체.Location = new System.Drawing.Point(41, 235);
+            this.공급_업체.Location = new System.Drawing.Point(42, 194);
             this.공급_업체.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.공급_업체.Name = "공급_업체";
             this.공급_업체.Size = new System.Drawing.Size(89, 20);
@@ -102,7 +100,7 @@
             // 
             this.점주.AutoSize = true;
             this.점주.Font = new System.Drawing.Font("궁서체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.점주.Location = new System.Drawing.Point(50, 277);
+            this.점주.Location = new System.Drawing.Point(51, 236);
             this.점주.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.점주.Name = "점주";
             this.점주.Size = new System.Drawing.Size(79, 20);
@@ -111,7 +109,7 @@
             // 
             // 유통기한
             // 
-            this.유통기한.Location = new System.Drawing.Point(147, 372);
+            this.유통기한.Location = new System.Drawing.Point(148, 331);
             this.유통기한.Margin = new System.Windows.Forms.Padding(2);
             this.유통기한.Name = "유통기한";
             this.유통기한.Size = new System.Drawing.Size(161, 25);
@@ -121,35 +119,16 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("궁서체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label6.Location = new System.Drawing.Point(40, 373);
+            this.label6.Location = new System.Drawing.Point(41, 332);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(89, 20);
             this.label6.TabIndex = 74;
             this.label6.Text = "유통기한";
             // 
-            // 등록ID
-            // 
-            this.등록ID.Location = new System.Drawing.Point(147, 80);
-            this.등록ID.Margin = new System.Windows.Forms.Padding(2);
-            this.등록ID.Name = "등록ID";
-            this.등록ID.Size = new System.Drawing.Size(149, 25);
-            this.등록ID.TabIndex = 73;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("궁서체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label1.Location = new System.Drawing.Point(50, 83);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(79, 20);
-            this.label1.TabIndex = 72;
-            this.label1.Text = "등록 ID";
-            // 
             // 상품이름
             // 
-            this.상품이름.Location = new System.Drawing.Point(147, 131);
+            this.상품이름.Location = new System.Drawing.Point(148, 90);
             this.상품이름.Margin = new System.Windows.Forms.Padding(2);
             this.상품이름.Name = "상품이름";
             this.상품이름.Size = new System.Drawing.Size(149, 25);
@@ -159,7 +138,7 @@
             // 
             this.Label5.AutoSize = true;
             this.Label5.Font = new System.Drawing.Font("궁서체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Label5.Location = new System.Drawing.Point(40, 135);
+            this.Label5.Location = new System.Drawing.Point(41, 94);
             this.Label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Label5.Name = "Label5";
             this.Label5.Size = new System.Drawing.Size(89, 20);
@@ -168,7 +147,7 @@
             // 
             // 비고
             // 
-            this.비고.Location = new System.Drawing.Point(147, 495);
+            this.비고.Location = new System.Drawing.Point(148, 454);
             this.비고.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.비고.Multiline = true;
             this.비고.Name = "비고";
@@ -189,7 +168,7 @@
             "담배",
             "뷰티",
             "기타"});
-            this.카테고리.Location = new System.Drawing.Point(147, 327);
+            this.카테고리.Location = new System.Drawing.Point(148, 286);
             this.카테고리.Margin = new System.Windows.Forms.Padding(2);
             this.카테고리.Name = "카테고리";
             this.카테고리.Size = new System.Drawing.Size(149, 23);
@@ -197,7 +176,7 @@
             // 
             // 등록가격
             // 
-            this.등록가격.Location = new System.Drawing.Point(147, 186);
+            this.등록가격.Location = new System.Drawing.Point(148, 145);
             this.등록가격.Margin = new System.Windows.Forms.Padding(2);
             this.등록가격.Name = "등록가격";
             this.등록가격.Size = new System.Drawing.Size(149, 25);
@@ -207,7 +186,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("궁서", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label4.Location = new System.Drawing.Point(79, 495);
+            this.label4.Location = new System.Drawing.Point(80, 454);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(49, 20);
@@ -218,7 +197,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("궁서체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label3.Location = new System.Drawing.Point(40, 327);
+            this.label3.Location = new System.Drawing.Point(41, 286);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(89, 20);
@@ -229,7 +208,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("궁서체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label2.Location = new System.Drawing.Point(41, 186);
+            this.label2.Location = new System.Drawing.Point(42, 145);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(89, 20);
@@ -238,7 +217,7 @@
             // 
             // 상품수량
             // 
-            this.상품수량.Location = new System.Drawing.Point(147, 426);
+            this.상품수량.Location = new System.Drawing.Point(148, 385);
             this.상품수량.Margin = new System.Windows.Forms.Padding(2);
             this.상품수량.Name = "상품수량";
             this.상품수량.Size = new System.Drawing.Size(149, 25);
@@ -248,7 +227,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("궁서체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label7.Location = new System.Drawing.Point(41, 426);
+            this.label7.Location = new System.Drawing.Point(42, 385);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(99, 20);
@@ -268,8 +247,6 @@
             this.Controls.Add(this.점주);
             this.Controls.Add(this.유통기한);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.등록ID);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.상품이름);
             this.Controls.Add(this.Label5);
             this.Controls.Add(this.비고);
@@ -297,8 +274,6 @@
         private System.Windows.Forms.Label 점주;
         private System.Windows.Forms.DateTimePicker 유통기한;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox 등록ID;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox 상품이름;
         private System.Windows.Forms.Label Label5;
         private System.Windows.Forms.TextBox 비고;

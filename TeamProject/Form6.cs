@@ -13,12 +13,51 @@ namespace TeamProject
     public partial class 보고서 : Form
     {
         private DBClass dbClass;
+        private Timer weeklyTimer; // 타이머 추가
+
 
         public 보고서()
         {
             InitializeComponent();
             dbClass = new DBClass(); // DBClass 객체 초기화
+            SetupWeeklyTimer(); // 주간 보고서 초기화를 위한 타이머 설정
+            LoadReportData();
         }
+        private void LoadReportData(string category = null)
+        {
+            try
+            {
+                // 카테고리 필터 쿼리 생성
+                string filterQuery = "";
+                if (!string.IsNullOrEmpty(category) && category != "전체")
+                {
+                    filterQuery = $"WHERE category = '{category}'";
+                }
+
+                // 보고서 데이터 가져오기
+                DataTable reportData = dbClass.GetReportData(filterQuery);
+                dataGridView1.DataSource = reportData;
+
+                // 총 판매 수량 및 총 판매 금액 계산
+                int totalQuantity = 0;
+                decimal totalAmount = 0;
+
+                foreach (DataRow row in reportData.Rows)
+                {
+                    totalQuantity += Convert.ToInt32(row["총판매수량"]);
+                    totalAmount += Convert.ToDecimal(row["총판매금액"]);
+                }
+
+                // 레이블 업데이트
+                label1.Text = totalQuantity.ToString(); // 총 판매 수량
+                label2.Text = $"{totalAmount:C}";       // 총 판매 금액 (원화 형식)
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"보고서 데이터를 로드하는 중 오류 발생: {ex.Message}");
+            }
+        }
+
 
         private void 출력_Click(object sender, EventArgs e)
         {
@@ -78,13 +117,87 @@ namespace TeamProject
 
         private void 조회_Click(object sender, EventArgs e)
         {
+            string categoryFilter = comboBox1.SelectedItem?.ToString();
+
             try
             {
-                // DBClass에서 보고서 데이터를 조회
-                DataTable reportData = dbClass.GetReportData();
+                // DBClass에서 보고서 데이터 조회
+                string filterQuery = categoryFilter != "전체" ? $"WHERE category = '{categoryFilter}'" : "";
 
-                // 데이터 확인용 디버깅 메시지
-                MessageBox.Show($"조회된 데이터 행 수: {reportData.Rows.Count}");
+                DataTable reportData = dbClass.GetReportData(filterQuery);
+
+                if (reportData.Rows.Count > 0)
+                {
+                    dataGridView1.DataSource = reportData;
+
+                    // 총 판매 수량 및 총 판매 금액 계산
+                    int totalQuantity = reportData.AsEnumerable().Sum(row => row.Field<int>("total_quantity"));
+                    decimal totalAmount = reportData.AsEnumerable().Sum(row => row.Field<decimal>("total_amount"));
+
+                    // Label 업데이트
+                    label1.Text = totalQuantity.ToString(); // 총 판매 수량
+                    label2.Text = $"{totalAmount:C}"; // 총 판매 금액
+                }
+                else
+                {
+                    // 데이터가 없으면 초기화
+                    dataGridView1.DataSource = null;
+                    label1.Text = "0";
+                    label2.Text = "₩0";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"보고서 데이터를 불러오는 중 오류 발생: {ex.Message}");
+            }
+        }
+
+        private void weekly_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // DBClass에서 지난주 보고서 데이터를 조회
+                DataTable lastWeekData = dbClass.GetLastWeekReport();
+
+                if (lastWeekData.Rows.Count > 0)
+                {
+                    // DataGridView에 조회된 데이터 설정
+                    dataGridView1.DataSource = lastWeekData;
+                }
+                else
+                {
+                    MessageBox.Show("지난주 보고서 데이터가 없습니다.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"지난주 보고서를 불러오는 중 오류 발생: {ex.Message}");
+            }
+        }
+        private void SetupWeeklyTimer()
+        {
+            weeklyTimer = new Timer();
+            weeklyTimer.Interval = 60000; // 1분 간격으로 체크
+
+            weeklyTimer.Tick += (s, e) =>
+            {
+                DateTime now = DateTime.Now;
+                // 일요일 23:59인지 확인
+                if (now.DayOfWeek == DayOfWeek.Sunday && now.Hour == 23 && now.Minute == 59)
+                {
+                    dbClass.SaveWeeklyReport(); // 보고서 초기화 및 저장
+                }
+            };
+
+            weeklyTimer.Start();
+        }
+
+        public void RefreshReport()
+        {
+            try
+            {
+                // DBClass에서 주간 보고서 데이터를 조회
+                DataTable reportData = dbClass.GetReportData();
 
                 if (reportData.Rows.Count > 0)
                 {
@@ -97,7 +210,6 @@ namespace TeamProject
 
                     foreach (DataRow row in reportData.Rows)
                     {
-                        // 각 데이터 행에서 판매 수량 및 금액 누적
                         totalQuantity += Convert.ToInt32(row["판매수량"]);
                         totalAmount += Convert.ToDecimal(row["판매금액"]);
                     }
@@ -117,7 +229,20 @@ namespace TeamProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"오류 발생: {ex.Message}");
+                MessageBox.Show($"보고서를 새로고침하는 중 오류 발생: {ex.Message}");
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                string selectedCategory = comboBox1.SelectedItem?.ToString() ?? "전체";
+                LoadReportData(selectedCategory);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"카테고리 선택 중 오류 발생: {ex.Message}");
             }
         }
     }

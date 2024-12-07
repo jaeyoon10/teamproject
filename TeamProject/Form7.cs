@@ -66,6 +66,12 @@ namespace TeamProject
                 {
                     parentForm.LoadStockData(); // Form8 새로고침
                 }
+                // 보고서 폼 새로고침
+                보고서 reportForm = Application.OpenForms.OfType<보고서>().FirstOrDefault();
+                if (reportForm != null)
+                {
+                    reportForm.RefreshReport(); // 보고서 폼 새로고침 메서드 호출
+                }
 
                 this.Close();
             }
@@ -151,15 +157,49 @@ namespace TeamProject
                     db.DB_Open();
                 }
 
-                string query = "INSERT INTO sales_history (sales_id, sale_time, quantity, stock_id, member_id) " +
-               "VALUES (sales_seq.NEXTVAL, :saleTime, :quantity, :stockId, :memberId)";
+                // 판매 내역 저장
+                string query = @"
+            INSERT INTO sales_history (sales_id, sale_time, quantity, stock_id, member_id)
+            VALUES (sales_seq.NEXTVAL, :saleTime, :quantity, :stockId, :memberId)";
                 using (OracleCommand cmd = new OracleCommand(query, db.Connection))
                 {
                     cmd.Parameters.Add(new OracleParameter("saleTime", DateTime.Now));
-                    cmd.Parameters.Add(new OracleParameter("quantity", txtSaleQuantity.Text));
+                    cmd.Parameters.Add(new OracleParameter("quantity", saleQuantity));
                     cmd.Parameters.Add(new OracleParameter("stockId", stockId));
                     cmd.Parameters.Add(new OracleParameter("memberId", memberId));
                     cmd.ExecuteNonQuery();
+                }
+
+                // 보고서 업데이트를 위한 상품 정보 가져오기
+                string productQuery = @"
+            SELECT 
+                r.product_name, 
+                r.category, 
+                r.registration_price * :saleQuantity AS totalAmount
+            FROM 
+                stock s
+            JOIN 
+                registration r ON s.registration_id = r.registration_id
+            WHERE 
+                s.stock_id = :stockId";
+
+                using (OracleCommand productCmd = new OracleCommand(productQuery, db.Connection))
+                {
+                    productCmd.Parameters.Add(new OracleParameter("saleQuantity", saleQuantity));
+                    productCmd.Parameters.Add(new OracleParameter("stockId", stockId));
+
+                    using (OracleDataReader reader = productCmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string productName = reader["product_name"].ToString();
+                            string category = reader["category"].ToString();
+                            decimal totalAmount = Convert.ToDecimal(reader["totalAmount"]);
+
+                            // 보고서 업데이트
+                            db.UpdateReport(stockId, saleQuantity, category, productName, totalAmount);
+                        }
+                    }
                 }
             }
             catch (Exception ex)
