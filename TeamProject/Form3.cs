@@ -34,6 +34,7 @@ namespace TeamProject
                 else
                 {
                     상품관리.DataSource = registrationData; // DataGridView에 데이터 바인딩
+                    상품관리.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; // 열을 화면에 꽉 차게 설정
                 }
             }
             catch (Exception ex)
@@ -191,6 +192,12 @@ namespace TeamProject
             {
                 try
                 {
+                    // 데이터베이스 연결 열기
+                    if (db.Connection.State != ConnectionState.Open)
+                    {
+                        db.DB_Open();
+                    }
+
                     // 선택된 행의 등록 ID 가져오기
                     int registrationId = Convert.ToInt32(상품관리.SelectedRows[0].Cells["등록ID"].Value);
 
@@ -207,15 +214,7 @@ namespace TeamProject
 
                         object result = cmd.ExecuteScalar();
 
-                        // 반환된 값이 null인 경우 처리
-                        if (result == DBNull.Value)
-                        {
-                            MessageBox.Show("판매 내역을 확인할 수 없습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-
-                        // 반환된 값이 숫자 형식인지 확인
-                        if (int.TryParse(result.ToString(), out int salesCount) && salesCount > 0)
+                        if (result != null && Convert.ToInt32(result) > 0)
                         {
                             // 판매 내역에 해당 상품이 존재하면 삭제 불가
                             MessageBox.Show("이 상품은 판매 내역에 존재하여 삭제할 수 없습니다.", "삭제 불가", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -226,16 +225,38 @@ namespace TeamProject
                     // 삭제 확인 메시지
                     if (MessageBox.Show("정말 삭제하시겠습니까?", "삭제 확인", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                     {
-                        // DBClass의 상품 삭제 메서드 호출
-                        db.DeleteProductAndKeepSales(registrationId);
+                        // 재고 테이블에서 삭제
+                        string deleteStockQuery = "DELETE FROM stock WHERE registration_id = :registrationId";
+                        using (OracleCommand deleteStockCmd = new OracleCommand(deleteStockQuery, db.Connection))
+                        {
+                            deleteStockCmd.Parameters.Add(new OracleParameter("registrationId", registrationId));
+                            deleteStockCmd.ExecuteNonQuery();
+                        }
+
+                        // 등록 테이블에서 삭제
+                        string deleteRegistrationQuery = "DELETE FROM registration WHERE registration_id = :registrationId";
+                        using (OracleCommand deleteRegistrationCmd = new OracleCommand(deleteRegistrationQuery, db.Connection))
+                        {
+                            deleteRegistrationCmd.Parameters.Add(new OracleParameter("registrationId", registrationId));
+                            deleteRegistrationCmd.ExecuteNonQuery();
+                        }
 
                         // 삭제 후 데이터 새로고침
                         LoadRegistrationData();
+                        MessageBox.Show("상품이 성공적으로 삭제되었습니다.", "삭제 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"삭제 작업 중 오류 발생: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    // 데이터베이스 연결 닫기
+                    if (db.Connection.State == ConnectionState.Open)
+                    {
+                        db.DB_Close();
+                    }
                 }
             }
             else

@@ -37,13 +37,9 @@
             this.카테고리 = new System.Windows.Forms.ComboBox();
             this.검색창 = new System.Windows.Forms.TextBox();
             this.검색버튼 = new System.Windows.Forms.Button();
-            this.버튼생성 = new System.Windows.Forms.FlowLayoutPanel();
             this.Report_text = new System.Windows.Forms.Label();
             this.Sale_text = new System.Windows.Forms.Label();
             this.Pmanage_text = new System.Windows.Forms.Label();
-            this.추가 = new System.Windows.Forms.Button();
-            this.수정 = new System.Windows.Forms.Button();
-            this.삭제 = new System.Windows.Forms.Button();
             this.재고 = new System.Windows.Forms.Button();
             this.시작날짜 = new System.Windows.Forms.DateTimePicker();
             this.종료날짜 = new System.Windows.Forms.DateTimePicker();
@@ -61,7 +57,7 @@
             this.상품관리.Name = "상품관리";
             this.상품관리.RowHeadersWidth = 51;
             this.상품관리.RowTemplate.Height = 27;
-            this.상품관리.Size = new System.Drawing.Size(1069, 509);
+            this.상품관리.Size = new System.Drawing.Size(1079, 566);
             this.상품관리.TabIndex = 0;
             // 
             // contextMenuStrip1
@@ -125,14 +121,6 @@
             this.검색버튼.UseVisualStyleBackColor = true;
             this.검색버튼.Click += new System.EventHandler(this.검색버튼_Click);
             // 
-            // 버튼생성
-            // 
-            this.버튼생성.Location = new System.Drawing.Point(586, 606);
-            this.버튼생성.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.버튼생성.Name = "버튼생성";
-            this.버튼생성.Size = new System.Drawing.Size(200, 39);
-            this.버튼생성.TabIndex = 12;
-            // 
             // Report_text
             // 
             this.Report_text.AutoSize = true;
@@ -167,39 +155,9 @@
             this.Pmanage_text.TabIndex = 14;
             this.Pmanage_text.Text = "상품 관리";
             // 
-            // 추가
-            // 
-            this.추가.Location = new System.Drawing.Point(973, 581);
-            this.추가.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.추가.Name = "추가";
-            this.추가.Size = new System.Drawing.Size(77, 21);
-            this.추가.TabIndex = 17;
-            this.추가.Text = "추가";
-            this.추가.UseVisualStyleBackColor = true;
-            // 
-            // 수정
-            // 
-            this.수정.Location = new System.Drawing.Point(1075, 581);
-            this.수정.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.수정.Name = "수정";
-            this.수정.Size = new System.Drawing.Size(75, 21);
-            this.수정.TabIndex = 18;
-            this.수정.Text = "수정";
-            this.수정.UseVisualStyleBackColor = true;
-            // 
-            // 삭제
-            // 
-            this.삭제.Location = new System.Drawing.Point(1177, 581);
-            this.삭제.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.삭제.Name = "삭제";
-            this.삭제.Size = new System.Drawing.Size(75, 21);
-            this.삭제.TabIndex = 19;
-            this.삭제.Text = "삭제";
-            this.삭제.UseVisualStyleBackColor = true;
-            // 
             // 재고
             // 
-            this.재고.Location = new System.Drawing.Point(1065, 638);
+            this.재고.Location = new System.Drawing.Point(1110, 638);
             this.재고.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.재고.Name = "재고";
             this.재고.Size = new System.Drawing.Size(88, 65);
@@ -244,13 +202,9 @@
             this.Controls.Add(this.종료날짜);
             this.Controls.Add(this.시작날짜);
             this.Controls.Add(this.재고);
-            this.Controls.Add(this.삭제);
-            this.Controls.Add(this.수정);
-            this.Controls.Add(this.추가);
             this.Controls.Add(this.Report_text);
             this.Controls.Add(this.Sale_text);
             this.Controls.Add(this.Pmanage_text);
-            this.Controls.Add(this.버튼생성);
             this.Controls.Add(this.검색버튼);
             this.Controls.Add(this.검색창);
             this.Controls.Add(this.카테고리);
@@ -271,13 +225,9 @@
         private System.Windows.Forms.ComboBox 카테고리;
         private System.Windows.Forms.TextBox 검색창;
         private System.Windows.Forms.Button 검색버튼;
-        private System.Windows.Forms.FlowLayoutPanel 버튼생성;
         private System.Windows.Forms.Label Report_text;
         private System.Windows.Forms.Label Sale_text;
         private System.Windows.Forms.Label Pmanage_text;
-        private System.Windows.Forms.Button 추가;
-        private System.Windows.Forms.Button 수정;
-        private System.Windows.Forms.Button 삭제;
         private System.Windows.Forms.Button 재고;
         private System.Windows.Forms.DateTimePicker 시작날짜;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;

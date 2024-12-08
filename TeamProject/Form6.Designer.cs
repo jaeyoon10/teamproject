@@ -42,6 +42,7 @@
             this.Pmanage_text = new System.Windows.Forms.Label();
             this.Pregister_text = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.buttonlastweek = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -78,7 +79,7 @@
             // 
             // 조회
             // 
-            this.조회.Location = new System.Drawing.Point(1109, 11);
+            this.조회.Location = new System.Drawing.Point(1090, 13);
             this.조회.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.조회.Name = "조회";
             this.조회.Size = new System.Drawing.Size(75, 22);
@@ -89,7 +90,7 @@
             // 
             // 출력
             // 
-            this.출력.Location = new System.Drawing.Point(1207, 11);
+            this.출력.Location = new System.Drawing.Point(1190, 11);
             this.출력.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.출력.Name = "출력";
             this.출력.Size = new System.Drawing.Size(75, 22);
@@ -194,11 +195,22 @@
             this.comboBox1.TabIndex = 22;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
+            // buttonlastweek
+            // 
+            this.buttonlastweek.Location = new System.Drawing.Point(1292, 12);
+            this.buttonlastweek.Name = "buttonlastweek";
+            this.buttonlastweek.Size = new System.Drawing.Size(118, 23);
+            this.buttonlastweek.TabIndex = 23;
+            this.buttonlastweek.Text = "지난주 보고서";
+            this.buttonlastweek.UseVisualStyleBackColor = true;
+            this.buttonlastweek.Click += new System.EventHandler(this.buttonlastweek_Click);
+            // 
             // 보고서
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1449, 730);
+            this.Controls.Add(this.buttonlastweek);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.Report_text);
             this.Controls.Add(this.Sale_text);
@@ -236,5 +248,6 @@
         private System.Windows.Forms.Label Pmanage_text;
         private System.Windows.Forms.Label Pregister_text;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button buttonlastweek;
     }
 }

@@ -420,14 +420,16 @@ public class DBClass
 
             string query = $@"
         SELECT 
-            r.report_id AS 보고서ID, 
-            r.product_name AS 상품명, 
-            r.category AS 카테고리, 
-            r.total_quantity AS 총판매수량, 
-            r.total_amount AS 총판매금액, 
+            r.report_id AS 보고서ID,
+            reg.product_name AS 상품명,
+            reg.category AS 카테고리,
+            r.total_quantity AS 판매수량,
+            r.total_amount AS 판매금액,
             r.report_week AS 보고서주차
         FROM 
             report r
+        LEFT JOIN stock s ON r.stock_id = s.stock_id
+        LEFT JOIN registration reg ON s.registration_id = reg.registration_id
         {filterQuery}";
 
             using (OracleDataAdapter adapter = new OracleDataAdapter(query, Connection))
@@ -493,19 +495,20 @@ public class DBClass
         return lastWeekTable;
     }
 
-    public void UpdateReport(int stockId, int saleQuantity, string category, string productName, decimal totalAmount)
-{
-    try
+    public void UpdateReport(int stockId, int saleQuantity, string productName, decimal totalAmount)
     {
-        DB_Open();
+        try
+        {
+            DB_Open();
 
-        string query = @"
+            string query = @"
             MERGE INTO report r
             USING (
                 SELECT 
-                    :stockId AS stock_id,
                     :productName AS product_name,
-                    :category AS category,
+                    (SELECT reg.category FROM registration reg 
+                     JOIN stock s ON reg.registration_id = s.registration_id 
+                     WHERE s.stock_id = :stockId) AS category,
                     :saleQuantity AS total_quantity,
                     :totalAmount AS total_amount
                 FROM dual
@@ -519,25 +522,25 @@ public class DBClass
                 INSERT (report_id, product_name, category, total_quantity, total_amount, report_week)
                 VALUES (report_seq.NEXTVAL, new_data.product_name, new_data.category, new_data.total_quantity, new_data.total_amount, TRUNC(SYSDATE, 'IW'))";
 
-        using (OracleCommand cmd = new OracleCommand(query, Connection))
+            using (OracleCommand cmd = new OracleCommand(query, Connection))
+            {
+                cmd.Parameters.Add(new OracleParameter("stockId", stockId));
+                cmd.Parameters.Add(new OracleParameter("productName", productName));
+                cmd.Parameters.Add(new OracleParameter("saleQuantity", saleQuantity));
+                cmd.Parameters.Add(new OracleParameter("totalAmount", totalAmount));
+                cmd.ExecuteNonQuery();
+            }
+        }
+        catch (Exception ex)
         {
-            cmd.Parameters.Add(new OracleParameter("stockId", stockId));
-            cmd.Parameters.Add(new OracleParameter("productName", productName));
-            cmd.Parameters.Add(new OracleParameter("category", category));
-            cmd.Parameters.Add(new OracleParameter("saleQuantity", saleQuantity));
-            cmd.Parameters.Add(new OracleParameter("totalAmount", totalAmount));
-            cmd.ExecuteNonQuery();
+            MessageBox.Show($"보고서를 업데이트하는 중 오류 발생: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        finally
+        {
+            DB_Close();
         }
     }
-    catch (Exception ex)
-    {
-        MessageBox.Show($"보고서를 업데이트하는 중 오류 발생: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-    }
-    finally
-    {
-        DB_Close();
-    }
-}
+
 
     // 새로운 등록 ID 생성
     public int GetNextRegistrationId()

@@ -46,31 +46,23 @@ namespace TeamProject
                     return;
                 }
 
-                // 1. 회원 이름으로 member 테이블에서 ID 조회 또는 추가
                 int memberId = GetOrAddMemberId(memberName);
 
-                // 2. stock 테이블에서 재고 확인 및 업데이트
                 if (!UpdateStockQuantity(stockId, saleQuantity))
                 {
                     MessageBox.Show("재고가 부족합니다.", "재고 부족", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                // 3. 판매 내역 저장
                 AddSaleHistory(stockId, memberId, saleQuantity);
 
                 MessageBox.Show("판매 완료되었습니다.", "성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // 폼 새로고침 및 닫기
-                if (Owner is Form8 parentForm)
-                {
-                    parentForm.LoadStockData(); // Form8 새로고침
-                }
-                // 보고서 폼 새로고침
+                // 보고서 업데이트
                 보고서 reportForm = Application.OpenForms.OfType<보고서>().FirstOrDefault();
                 if (reportForm != null)
                 {
-                    reportForm.RefreshReport(); // 보고서 폼 새로고침 메서드 호출
+                    reportForm.RefreshReport();
                 }
 
                 this.Close();
@@ -197,7 +189,7 @@ namespace TeamProject
                             decimal totalAmount = Convert.ToDecimal(reader["totalAmount"]);
 
                             // 보고서 업데이트
-                            db.UpdateReport(stockId, saleQuantity, category, productName, totalAmount);
+                            db.UpdateReport(stockId, saleQuantity, productName, totalAmount);
                         }
                     }
                 }

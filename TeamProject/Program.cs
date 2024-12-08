@@ -17,6 +17,7 @@ namespace TeamProject
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new 상품재고관리());
+
         }
     }
 }
