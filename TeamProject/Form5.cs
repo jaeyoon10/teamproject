@@ -20,6 +20,7 @@ namespace TeamProject
             InitializeComponent();
             db = new DBClass();
             LoadSalesHistory();
+            판매내역.AllowUserToAddRows = false; // 추가 행 제거
         }
 
         private void LoadSalesHistory()
@@ -47,6 +48,7 @@ namespace TeamProject
                 }
 
                 판매내역.DataSource = salesHistoryData; // Form5의 그리드뷰에 바인딩
+                판매내역.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; // 열을 화면에 꽉 차게 설정
             }
             catch (Exception ex)
             {
@@ -107,6 +109,10 @@ namespace TeamProject
             this.Hide();
         }
 
+        private void Form5_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
 

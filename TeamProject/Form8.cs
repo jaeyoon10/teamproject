@@ -14,6 +14,7 @@ namespace TeamProject
             InitializeComponent();
             db = new DBClass();
             LoadStockData();
+            재고관리.AllowUserToAddRows = false; // 추가 행 제거
         }
 
 
@@ -43,6 +44,7 @@ namespace TeamProject
                 }
 
                 재고관리.DataSource = stockData; // Form8의 재고 그리드뷰
+                재고관리.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; // 열을 화면에 꽉 차게 설정
             }
             catch (Exception ex)
             {

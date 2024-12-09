@@ -220,6 +220,21 @@ public class DBClass
                 return;
             }
 
+            // stock_id 조회
+            string stockIdQuery = "SELECT stock_id FROM stock WHERE registration_id = :registrationId";
+            int stockId = -1;
+            using (OracleCommand stockCmd = new OracleCommand(stockIdQuery, Connection))
+            {
+                stockCmd.Parameters.Add(new OracleParameter("registrationId", registrationId));
+                object result = stockCmd.ExecuteScalar();
+                if (result == null)
+                {
+                    MessageBox.Show("해당 상품의 재고가 존재하지 않습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                stockId = Convert.ToInt32(result);
+            }
+
             // 판매 기록 저장
             string insertQuery = @"
             INSERT INTO sales_history (sales_id, sale_time, quantity, stock_id, member_id)
@@ -298,13 +313,23 @@ public class DBClass
         try
         {
             DB_Open();
-            // stock 삭제 -> sales_history의 stock_id는 NULL로 유지됨
-            string query = @"
-            DELETE FROM stock 
-            WHERE stock_quantity = 0";
-            using (OracleCommand cmd = new OracleCommand(query, Connection))
+            // `sales_history` 테이블에서 재고 ID를 NULL로 설정
+            string updateSalesQuery = @"
+            UPDATE sales_history
+            SET stock_id = NULL
+            WHERE stock_id IN (
+                SELECT stock_id FROM stock WHERE stock_quantity = 0
+            )";
+            using (OracleCommand updateCmd = new OracleCommand(updateSalesQuery, Connection))
             {
-                cmd.ExecuteNonQuery();
+                updateCmd.ExecuteNonQuery();
+            }
+
+            // 재고 0인 항목 삭제
+            string deleteStockQuery = "DELETE FROM stock WHERE stock_quantity = 0";
+            using (OracleCommand deleteCmd = new OracleCommand(deleteStockQuery, Connection))
+            {
+                deleteCmd.ExecuteNonQuery();
             }
         }
         catch (Exception ex)
@@ -416,34 +441,39 @@ public class DBClass
         DataTable reportTable = new DataTable();
         try
         {
-            DB_Open();
+            DB_Open(); // 데이터베이스 연결
 
+            // 판매 데이터를 기반으로 보고서 데이터 조회
             string query = $@"
         SELECT 
-            r.report_id AS 보고서ID,
             reg.product_name AS 상품명,
             reg.category AS 카테고리,
-            r.total_quantity AS 판매수량,
-            r.total_amount AS 판매금액,
-            r.report_week AS 보고서주차
+            SUM(sh.quantity) AS 판매수량,
+            SUM(sh.quantity * reg.registration_price) AS 판매금액,
+            MAX(sh.sale_time) AS 판매시간, -- 판매 시간 추가
+            st.stock_quantity AS 재고 -- 재고 추가
         FROM 
-            report r
-        LEFT JOIN stock s ON r.stock_id = s.stock_id
-        LEFT JOIN registration reg ON s.registration_id = reg.registration_id
-        {filterQuery}";
+            sales_history sh
+        JOIN 
+            stock st ON sh.stock_id = st.stock_id
+        JOIN 
+            registration reg ON st.registration_id = reg.registration_id
+        {filterQuery}
+        GROUP BY 
+            reg.product_name, reg.category, st.stock_quantity";
 
             using (OracleDataAdapter adapter = new OracleDataAdapter(query, Connection))
             {
-                adapter.Fill(reportTable);
+                adapter.Fill(reportTable); // 쿼리 결과를 DataTable로 채우기
             }
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"보고서 데이터를 가져오는 중 오류 발생: {ex.Message}");
+            MessageBox.Show($"판매 데이터를 기반으로 보고서 데이터를 가져오는 중 오류 발생: {ex.Message}");
         }
         finally
         {
-            DB_Close();
+            DB_Close(); // 데이터베이스 연결 닫기
         }
         return reportTable;
     }
@@ -495,7 +525,7 @@ public class DBClass
         return lastWeekTable;
     }
 
-    public void UpdateReport(int stockId, int saleQuantity, string productName, decimal totalAmount)
+    public void UpdateReport(int stockId, int saleQuantity, string category, string productName, decimal totalAmount)
     {
         try
         {
@@ -505,27 +535,27 @@ public class DBClass
             MERGE INTO report r
             USING (
                 SELECT 
+                    :stockId AS stock_id,
                     :productName AS product_name,
-                    (SELECT reg.category FROM registration reg 
-                     JOIN stock s ON reg.registration_id = s.registration_id 
-                     WHERE s.stock_id = :stockId) AS category,
+                    :category AS category,
                     :saleQuantity AS total_quantity,
                     :totalAmount AS total_amount
                 FROM dual
             ) new_data
-            ON (r.product_name = new_data.product_name AND TRUNC(r.report_week, 'IW') = TRUNC(SYSDATE, 'IW'))
+            ON (r.product_name = new_data.product_name)
             WHEN MATCHED THEN
                 UPDATE SET 
-                    total_quantity = r.total_quantity + new_data.total_quantity,
-                    total_amount = r.total_amount + new_data.total_amount
+                    r.total_quantity = r.total_quantity + new_data.total_quantity,
+                    r.total_amount = r.total_amount + new_data.total_amount
             WHEN NOT MATCHED THEN
-                INSERT (report_id, product_name, category, total_quantity, total_amount, report_week)
-                VALUES (report_seq.NEXTVAL, new_data.product_name, new_data.category, new_data.total_quantity, new_data.total_amount, TRUNC(SYSDATE, 'IW'))";
+                INSERT (report_id, product_name, category, total_quantity, total_amount)
+                VALUES (report_seq.NEXTVAL, new_data.product_name, new_data.category, new_data.total_quantity, new_data.total_amount)";
 
             using (OracleCommand cmd = new OracleCommand(query, Connection))
             {
                 cmd.Parameters.Add(new OracleParameter("stockId", stockId));
                 cmd.Parameters.Add(new OracleParameter("productName", productName));
+                cmd.Parameters.Add(new OracleParameter("category", category));
                 cmd.Parameters.Add(new OracleParameter("saleQuantity", saleQuantity));
                 cmd.Parameters.Add(new OracleParameter("totalAmount", totalAmount));
                 cmd.ExecuteNonQuery();

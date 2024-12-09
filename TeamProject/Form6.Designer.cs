@@ -40,9 +40,7 @@
             this.Report_text = new System.Windows.Forms.Label();
             this.Sale_text = new System.Windows.Forms.Label();
             this.Pmanage_text = new System.Windows.Forms.Label();
-            this.Pregister_text = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.buttonlastweek = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,7 +77,7 @@
             // 
             // 조회
             // 
-            this.조회.Location = new System.Drawing.Point(1090, 13);
+            this.조회.Location = new System.Drawing.Point(1230, 13);
             this.조회.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.조회.Name = "조회";
             this.조회.Size = new System.Drawing.Size(75, 22);
@@ -90,7 +88,7 @@
             // 
             // 출력
             // 
-            this.출력.Location = new System.Drawing.Point(1190, 11);
+            this.출력.Location = new System.Drawing.Point(1335, 13);
             this.출력.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.출력.Name = "출력";
             this.출력.Size = new System.Drawing.Size(75, 22);
@@ -131,7 +129,7 @@
             // 
             this.Report_text.AutoSize = true;
             this.Report_text.Font = new System.Drawing.Font("궁서체", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Report_text.Location = new System.Drawing.Point(17, 538);
+            this.Report_text.Location = new System.Drawing.Point(18, 415);
             this.Report_text.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Report_text.Name = "Report_text";
             this.Report_text.Size = new System.Drawing.Size(155, 25);
@@ -142,7 +140,7 @@
             // 
             this.Sale_text.AutoSize = true;
             this.Sale_text.Font = new System.Drawing.Font("궁서체", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Sale_text.Location = new System.Drawing.Point(27, 398);
+            this.Sale_text.Location = new System.Drawing.Point(28, 275);
             this.Sale_text.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Sale_text.Name = "Sale_text";
             this.Sale_text.Size = new System.Drawing.Size(129, 25);
@@ -154,24 +152,13 @@
             // 
             this.Pmanage_text.AutoSize = true;
             this.Pmanage_text.Font = new System.Drawing.Font("궁서체", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Pmanage_text.Location = new System.Drawing.Point(27, 258);
+            this.Pmanage_text.Location = new System.Drawing.Point(28, 135);
             this.Pmanage_text.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Pmanage_text.Name = "Pmanage_text";
             this.Pmanage_text.Size = new System.Drawing.Size(129, 25);
             this.Pmanage_text.TabIndex = 18;
             this.Pmanage_text.Text = "상품 관리";
             this.Pmanage_text.Click += new System.EventHandler(this.Pmanage_text_Click);
-            // 
-            // Pregister_text
-            // 
-            this.Pregister_text.AutoSize = true;
-            this.Pregister_text.Font = new System.Drawing.Font("궁서체", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Pregister_text.Location = new System.Drawing.Point(27, 118);
-            this.Pregister_text.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.Pregister_text.Name = "Pregister_text";
-            this.Pregister_text.Size = new System.Drawing.Size(129, 25);
-            this.Pregister_text.TabIndex = 17;
-            this.Pregister_text.Text = "상품 등록";
             // 
             // comboBox1
             // 
@@ -195,27 +182,15 @@
             this.comboBox1.TabIndex = 22;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
-            // buttonlastweek
-            // 
-            this.buttonlastweek.Location = new System.Drawing.Point(1292, 12);
-            this.buttonlastweek.Name = "buttonlastweek";
-            this.buttonlastweek.Size = new System.Drawing.Size(118, 23);
-            this.buttonlastweek.TabIndex = 23;
-            this.buttonlastweek.Text = "지난주 보고서";
-            this.buttonlastweek.UseVisualStyleBackColor = true;
-            this.buttonlastweek.Click += new System.EventHandler(this.buttonlastweek_Click);
-            // 
             // 보고서
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1449, 730);
-            this.Controls.Add(this.buttonlastweek);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.Report_text);
             this.Controls.Add(this.Sale_text);
             this.Controls.Add(this.Pmanage_text);
-            this.Controls.Add(this.Pregister_text);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.출력);
@@ -226,6 +201,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "보고서";
             this.Text = "보고서";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.보고서_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -246,8 +222,6 @@
         private System.Windows.Forms.Label Report_text;
         private System.Windows.Forms.Label Sale_text;
         private System.Windows.Forms.Label Pmanage_text;
-        private System.Windows.Forms.Label Pregister_text;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Button buttonlastweek;
     }
 }

@@ -22,6 +22,7 @@ namespace TeamProject
             dbClass = new DBClass(); // DBClass 객체 초기화
             SetupWeeklyTimer(); // 주간 보고서 초기화를 위한 타이머 설정
             LoadReportData();
+            dataGridView1.AllowUserToAddRows = false; // 추가 행 제거
         }
         private void LoadReportData(string category = null)
         {
@@ -34,18 +35,26 @@ namespace TeamProject
                     filterQuery = $"WHERE reg.category = '{category}'";
                 }
 
-                // 데이터베이스에서 보고서 데이터 가져오기
+                // 판매 데이터를 가져오는 메서드 호출
                 DataTable reportData = dbClass.GetReportData(filterQuery);
 
-                // 상품별 데이터 바인딩
+                if (reportData == null || reportData.Rows.Count == 0)
+                {
+                    MessageBox.Show("보고서 데이터가 없습니다.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
                 dataGridView1.DataSource = reportData;
 
-                // 전체 합계 계산 및 레이블 업데이트
+                // **열 크기를 화면에 맞게 자동 조정**
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                dataGridView1.AutoResizeColumns();
+
                 UpdateTotalSummary(reportData);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"보고서 데이터를 로드하는 중 오류 발생: {ex.Message}");
+                MessageBox.Show($"보고서 데이터를 로드하는 중 오류 발생: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -55,9 +64,12 @@ namespace TeamProject
             {
                 // 총 판매 수량 및 금액 계산
                 int totalQuantity = reportData.AsEnumerable()
-                    .Sum(row => row.Field<int?>("판매수량") ?? 0); // NULL 값은 0으로 처리
+                    .Where(row => row["판매수량"] != DBNull.Value) // NULL 값 필터링
+                    .Sum(row => Convert.ToInt32(row["판매수량"])); // 안전한 캐스팅
+
                 decimal totalAmount = reportData.AsEnumerable()
-                    .Sum(row => row.Field<decimal?>("판매금액") ?? 0m); // NULL 값은 0.0으로 처리
+                    .Where(row => row["판매금액"] != DBNull.Value) // NULL 값 필터링
+                    .Sum(row => Convert.ToDecimal(row["판매금액"])); // 안전한 캐스팅
 
                 // 레이블에 반영
                 label1.Text = totalQuantity.ToString(); // 총 판매 수량
@@ -65,7 +77,7 @@ namespace TeamProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"요약 데이터를 계산하는 중 오류 발생: {ex.Message}");
+                MessageBox.Show($"요약 데이터를 계산하는 중 오류 발생: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -145,6 +157,7 @@ namespace TeamProject
         {
             try
             {
+                // 전체 데이터 로드
                 LoadReportData();
             }
             catch (Exception ex)
@@ -183,24 +196,12 @@ namespace TeamProject
 
         private void buttonlastweek_Click(object sender, EventArgs e)
         {
-            try
-            {
-                DataTable lastWeekData = dbClass.GetLastWeekReport();
 
-                if (lastWeekData.Rows.Count > 0)
-                {
-                    dataGridView1.DataSource = lastWeekData;
-                    UpdateTotalSummary(lastWeekData); // 지난주 데이터로 요약 업데이트
-                }
-                else
-                {
-                    MessageBox.Show("지난주 보고서 데이터가 없습니다.");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"지난주 보고서를 불러오는 중 오류 발생: {ex.Message}");
-            }
+        }
+
+        private void 보고서_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

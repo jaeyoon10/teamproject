@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
@@ -9,15 +10,22 @@ namespace TeamProject
     public partial class 상품재고관리 : Form
     {
         private DBClass db;
+        private HashSet<string> alertedProducts; // 알림이 표시된 상품 추적
 
         public 상품재고관리()
         {
             InitializeComponent();
             db = new DBClass();
             db.DB_Open(); // 데이터베이스 연결
+            alertedProducts = new HashSet<string>(); // 알림 상태 초기화
             LoadRegistrationData(); // 초기 데이터 로드
             InitializeSearchFilters(); // 검색 필터 초기화
             InitializeContextMenu(); // ContextMenuStrip 초기화
+
+            상품관리.AllowUserToAddRows = false; // 추가 행 제거
+            // 폼 로드 후 알림 확인
+            this.Shown += (s, e) => CheckAlerts();
+
         }
 
         public void LoadRegistrationData(string filterQuery = "")
@@ -35,6 +43,9 @@ namespace TeamProject
                 {
                     상품관리.DataSource = registrationData; // DataGridView에 데이터 바인딩
                     상품관리.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; // 열을 화면에 꽉 차게 설정
+
+                    // 색상 다시 적용
+                    CheckAlerts(onlyColor: true); // 알림 없이 색상만 적용
                 }
             }
             catch (Exception ex)
@@ -42,6 +53,62 @@ namespace TeamProject
                 MessageBox.Show($"데이터 로드 중 오류 발생: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private bool alertsShown = true; // 알림이 이미 떴는지 확인하는 변수
+        private void CheckAlerts(bool onlyColor = false)
+        {
+            try
+            {
+                foreach (DataGridViewRow row in 상품관리.Rows)
+                {
+                    if (row.Cells["수량"].Value == DBNull.Value || row.Cells["유통기한"].Value == DBNull.Value)
+                        continue; // 값이 NULL이면 다음 행으로 이동
+
+                    int stockQuantity = Convert.ToInt32(row.Cells["수량"].Value);
+                    DateTime expirationDate = Convert.ToDateTime(row.Cells["유통기한"].Value);
+                    int minStock = 15; // 최소 재고 15로 고정
+
+
+                    // 색상 초기화
+                    row.Cells["수량"].Style.BackColor = Color.White;
+                    row.Cells["유통기한"].Style.BackColor = Color.White;
+
+                    // 재고 부족
+                    if (stockQuantity < minStock)
+                    {
+                        row.Cells["수량"].Style.BackColor = Color.LightPink;
+
+                        if (!alertsShown && !onlyColor) // 알림이 표시되지 않았고, 색상만 적용 모드가 아닌 경우
+                        {
+                            MessageBox.Show($"{row.Cells["상품명"].Value}의 재고가 부족합니다.", "재고 부족 알림", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+
+                    // 유통기한 임박
+                    if ((expirationDate - DateTime.Now).Days <= 3)
+                    {
+                        row.Cells["유통기한"].Style.BackColor = Color.LightYellow;
+
+                        if (!alertsShown && !onlyColor) // 알림이 표시되지 않았고, 색상만 적용 모드가 아닌 경우
+                        {
+                            MessageBox.Show($"{row.Cells["상품명"].Value}의 유통기한이 임박했습니다.", "유통기한 알림", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                }
+
+                // 알림이 모두 끝난 후, 알림 표시를 비활성화
+                if (!onlyColor)
+                {
+                    alertsShown = true;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show($"알림 확인 중 오류 발생: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
         private void InitializeSearchFilters()
         {
             // 카테고리 콤보박스 초기화
@@ -282,6 +349,44 @@ namespace TeamProject
             form5.Show(); // 재고 테이블 표시 폼 열기
 
             this.Hide();
+        }
+
+        private void Report_text_Click(object sender, EventArgs e)
+        {
+            보고서 form6 = new 보고서();
+            form6.Show(); // 재고 테이블 표시 폼 열기
+
+            this.Hide();
+        }
+
+        private void 상품재고관리_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                // 데이터베이스 연결 닫기 (필요한 경우)
+                db.DB_Close();
+
+                // 모든 리소스 해제 후 애플리케이션 종료
+                Application.Exit();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"프로그램 종료 중 오류 발생: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void 상품재고관리_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void 상품재고관리_Shown(object sender, EventArgs e)
+        {
+            // 처음 실행 시 알림 확인
+            if (!alertsShown)
+            {
+                CheckAlerts(); // 창이 표시된 후 알림을 실행
+            }
         }
     }
 }

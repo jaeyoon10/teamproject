@@ -131,6 +131,7 @@
             this.Report_text.Size = new System.Drawing.Size(155, 25);
             this.Report_text.TabIndex = 16;
             this.Report_text.Text = "보고서 관리";
+            this.Report_text.Click += new System.EventHandler(this.Report_text_Click);
             // 
             // Sale_text
             // 
@@ -212,6 +213,9 @@
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "상품재고관리";
             this.Text = "상품재고관리";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.상품재고관리_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.상품재고관리_FormClosed);
+            this.Shown += new System.EventHandler(this.상품재고관리_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.상품관리)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);

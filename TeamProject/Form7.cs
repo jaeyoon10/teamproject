@@ -54,22 +54,81 @@ namespace TeamProject
                     return;
                 }
 
+                // 3. 판매 내역 저장
                 AddSaleHistory(stockId, memberId, saleQuantity);
+
+                // 4. 보고서 창 업데이트
+                UpdateReport(stockId, saleQuantity);
 
                 MessageBox.Show("판매 완료되었습니다.", "성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // 보고서 업데이트
-                보고서 reportForm = Application.OpenForms.OfType<보고서>().FirstOrDefault();
-                if (reportForm != null)
+                // 부모 폼 새로고침 및 폼 닫기
+                if (Owner is Form8 parentForm)
                 {
-                    reportForm.RefreshReport();
+                    parentForm.LoadStockData();
                 }
-
                 this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"판매 중 오류 발생: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // 보고서 업데이트 메서드
+        private void UpdateReport(int stockId, int saleQuantity)
+        {
+            try
+            {
+                // DBClass 사용
+                db.DB_Open();
+
+                // `registration` 테이블에서 상품 정보 가져오기
+                string query = @"
+            SELECT 
+                r.product_name,
+                r.category,
+                (r.registration_price * :saleQuantity) AS totalAmount
+            FROM 
+                stock s
+            JOIN 
+                registration r ON s.registration_id = r.registration_id
+            WHERE 
+                s.stock_id = :stockId";
+
+                using (OracleCommand cmd = new OracleCommand(query, db.Connection))
+                {
+                    cmd.Parameters.Add(new OracleParameter("saleQuantity", saleQuantity));
+                    cmd.Parameters.Add(new OracleParameter("stockId", stockId));
+
+                    using (OracleDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string productName = reader["product_name"].ToString();
+                            string category = reader["category"].ToString();
+                            decimal totalAmount = Convert.ToDecimal(reader["totalAmount"]);
+
+                            // 보고서 테이블에 추가
+                            db.UpdateReport(stockId, saleQuantity, category, productName, totalAmount);
+
+                            // 보고서 창(Form6) 갱신
+                            보고서 reportForm = Application.OpenForms.OfType<보고서>().FirstOrDefault();
+                            if (reportForm != null)
+                            {
+                                reportForm.RefreshReport();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"보고서 업데이트 중 오류 발생: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                db.DB_Close();
             }
         }
 
@@ -189,7 +248,7 @@ namespace TeamProject
                             decimal totalAmount = Convert.ToDecimal(reader["totalAmount"]);
 
                             // 보고서 업데이트
-                            db.UpdateReport(stockId, saleQuantity, productName, totalAmount);
+                            db.UpdateReport(stockId, saleQuantity, category, productName, totalAmount);
                         }
                     }
                 }
