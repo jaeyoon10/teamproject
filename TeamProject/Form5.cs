@@ -113,6 +113,53 @@ namespace TeamProject
         {
             Application.Exit();
         }
+
+        private void 검색버튼_Click(object sender, EventArgs e)
+        {
+            string keyword = 검색창.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(keyword) || keyword == "검색어를 입력하세요")
+            {
+                MessageBox.Show("검색어를 입력해주세요.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                string query = @"
+        SELECT 
+            sh.sales_id AS 판매ID,
+            sh.sale_time AS 판매시간,
+            sh.quantity AS 판매수량,
+            m.name AS 회원명,
+            s.product_name AS 상품명
+        FROM 
+            sales_history sh
+        LEFT JOIN member m ON sh.member_id = m.member_id
+        LEFT JOIN stock st ON sh.stock_id = st.stock_id
+        LEFT JOIN registration s ON st.registration_id = s.registration_id
+        WHERE s.product_name IS NOT NULL
+        AND (sh.sales_id LIKE :keyword
+             OR m.name LIKE :keyword
+             OR s.product_name LIKE :keyword)";
+
+                DataTable salesHistoryData = new DataTable();
+                using (OracleCommand cmd = new OracleCommand(query, db.Connection))
+                {
+                    cmd.Parameters.Add(new OracleParameter(":keyword", $"%{keyword}%"));
+                    using (OracleDataAdapter adapter = new OracleDataAdapter(cmd))
+                    {
+                        adapter.Fill(salesHistoryData);
+                    }
+                }
+
+                판매내역.DataSource = salesHistoryData;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"검색 중 오류 발생: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
 

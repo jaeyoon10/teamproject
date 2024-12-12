@@ -90,13 +90,13 @@
             // 
             // 카테고리
             // 
+            this.카테고리.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.카테고리.FormattingEnabled = true;
             this.카테고리.Location = new System.Drawing.Point(110, 678);
             this.카테고리.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.카테고리.Name = "카테고리";
             this.카테고리.Size = new System.Drawing.Size(85, 23);
             this.카테고리.TabIndex = 2;
-            this.카테고리.Text = "카테고리";
             // 
             // 검색창
             // 

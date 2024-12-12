@@ -33,8 +33,6 @@
             this.Pmanage_text = new System.Windows.Forms.Label();
             this.검색버튼 = new System.Windows.Forms.Button();
             this.검색창 = new System.Windows.Forms.TextBox();
-            this.카테고리 = new System.Windows.Forms.ComboBox();
-            this.전체기간 = new System.Windows.Forms.ComboBox();
             this.판매내역 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.판매내역)).BeginInit();
             this.SuspendLayout();
@@ -77,55 +75,25 @@
             // 
             // 검색버튼
             // 
-            this.검색버튼.Location = new System.Drawing.Point(971, 626);
+            this.검색버튼.Location = new System.Drawing.Point(821, 610);
             this.검색버튼.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.검색버튼.Name = "검색버튼";
             this.검색버튼.Size = new System.Drawing.Size(75, 24);
             this.검색버튼.TabIndex = 26;
             this.검색버튼.Text = "검색";
             this.검색버튼.UseVisualStyleBackColor = true;
+            this.검색버튼.Click += new System.EventHandler(this.검색버튼_Click);
             // 
             // 검색창
             // 
             this.검색창.ForeColor = System.Drawing.Color.Gray;
-            this.검색창.Location = new System.Drawing.Point(707, 624);
+            this.검색창.Location = new System.Drawing.Point(557, 608);
             this.검색창.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.검색창.Name = "검색창";
             this.검색창.Size = new System.Drawing.Size(237, 25);
             this.검색창.TabIndex = 4;
             this.검색창.Enter += new System.EventHandler(this.검색창_Enter);
             this.검색창.Leave += new System.EventHandler(this.검색창_Leave);
-            // 
-            // 카테고리
-            // 
-            this.카테고리.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.카테고리.FormattingEnabled = true;
-            this.카테고리.Items.AddRange(new object[] {
-            "음료",
-            "스낵",
-            "즉석식품",
-            "유제품",
-            "가공식품",
-            "생활용품",
-            "주류",
-            "담배",
-            "뷰티",
-            "기타"});
-            this.카테고리.Location = new System.Drawing.Point(595, 624);
-            this.카테고리.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.카테고리.Name = "카테고리";
-            this.카테고리.Size = new System.Drawing.Size(85, 23);
-            this.카테고리.TabIndex = 23;
-            // 
-            // 전체기간
-            // 
-            this.전체기간.FormattingEnabled = true;
-            this.전체기간.Location = new System.Drawing.Point(477, 624);
-            this.전체기간.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.전체기간.Name = "전체기간";
-            this.전체기간.Size = new System.Drawing.Size(91, 23);
-            this.전체기간.TabIndex = 22;
-            this.전체기간.Text = "전체기간";
             // 
             // 판매내역
             // 
@@ -145,8 +113,6 @@
             this.ClientSize = new System.Drawing.Size(1278, 714);
             this.Controls.Add(this.검색버튼);
             this.Controls.Add(this.검색창);
-            this.Controls.Add(this.카테고리);
-            this.Controls.Add(this.전체기간);
             this.Controls.Add(this.판매내역);
             this.Controls.Add(this.Report_text);
             this.Controls.Add(this.Sale_text);
@@ -168,8 +134,6 @@
         private System.Windows.Forms.Label Pmanage_text;
         private System.Windows.Forms.Button 검색버튼;
         private System.Windows.Forms.TextBox 검색창;
-        private System.Windows.Forms.ComboBox 카테고리;
-        private System.Windows.Forms.ComboBox 전체기간;
         private System.Windows.Forms.DataGridView 판매내역;
     }
 }
