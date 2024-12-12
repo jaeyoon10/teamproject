@@ -172,7 +172,7 @@ namespace TeamProject
 
             if (기간선택.Checked)
             {
-                filterQuery += $" AND r.registration_date BETWEEN TO_DATE('{시작날짜.Value:yyyy-MM-dd}', 'YYYY-MM-DD') AND TO_DATE('{종료날짜.Value:yyyy-MM-dd}', 'YYYY-MM-DD')";
+                filterQuery += $" AND r.expiration_date BETWEEN TO_DATE('{시작날짜.Value:yyyy-MM-dd}', 'YYYY-MM-DD') AND TO_DATE('{종료날짜.Value:yyyy-MM-dd}', 'YYYY-MM-DD')";
             }
 
             LoadRegistrationData(filterQuery);
