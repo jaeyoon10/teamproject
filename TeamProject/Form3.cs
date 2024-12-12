@@ -26,6 +26,9 @@ namespace TeamProject
             // 폼 로드 후 알림 확인
             this.Shown += (s, e) => CheckAlerts();
             상품관리.Sorted += (s, e) => CheckAlerts(onlyColor: true);
+
+            ResetMenuColors();
+            Pmanage_text.ForeColor = Color.Blue;
         }
 
         public void LoadRegistrationData(string filterQuery = "")
@@ -345,6 +348,10 @@ namespace TeamProject
 
         private void Sale_text_Click(object sender, EventArgs e)
         {
+
+            ResetMenuColors();
+            Sale_text.ForeColor = Color.Blue;
+
             Form5 form5 = new Form5();
             form5.Show(); // 재고 테이블 표시 폼 열기
 
@@ -353,10 +360,18 @@ namespace TeamProject
 
         private void Report_text_Click(object sender, EventArgs e)
         {
+            ResetMenuColors();
+            Report_text.ForeColor = Color.Blue;
             보고서 form6 = new 보고서();
             form6.Show(); // 재고 테이블 표시 폼 열기
 
             this.Hide();
+        }
+        private void ResetMenuColors()
+        {
+            Sale_text.ForeColor = Color.Black;
+            Pmanage_text.ForeColor = Color.Black;
+            Report_text.ForeColor = Color.Black;
         }
 
         private void 상품재고관리_FormClosing(object sender, FormClosingEventArgs e)
@@ -387,6 +402,12 @@ namespace TeamProject
             {
                 CheckAlerts(); // 창이 표시된 후 알림을 실행
             }
+        }
+
+        private void Pmanage_text_Click(object sender, EventArgs e)
+        {
+            ResetMenuColors();
+            Pmanage_text.ForeColor = Color.Blue;
         }
     }
 }
