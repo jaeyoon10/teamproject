@@ -25,7 +25,7 @@ namespace TeamProject
             상품관리.AllowUserToAddRows = false; // 추가 행 제거
             // 폼 로드 후 알림 확인
             this.Shown += (s, e) => CheckAlerts();
-
+            상품관리.Sorted += (s, e) => CheckAlerts(onlyColor: true);
         }
 
         public void LoadRegistrationData(string filterQuery = "")
