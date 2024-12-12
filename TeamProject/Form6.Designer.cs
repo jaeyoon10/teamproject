@@ -135,6 +135,7 @@
             this.Report_text.Size = new System.Drawing.Size(155, 25);
             this.Report_text.TabIndex = 20;
             this.Report_text.Text = "보고서 관리";
+            this.Report_text.Click += new System.EventHandler(this.Report_text_Click);
             // 
             // Sale_text
             // 

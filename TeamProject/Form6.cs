@@ -23,6 +23,9 @@ namespace TeamProject
             SetupWeeklyTimer(); // 주간 보고서 초기화를 위한 타이머 설정
             LoadReportData();
             dataGridView1.AllowUserToAddRows = false; // 추가 행 제거
+
+            ResetMenuColors();
+            Report_text.ForeColor = Color.Blue;
         }
         private void LoadReportData(string category = null)
         {
@@ -117,6 +120,8 @@ namespace TeamProject
 
         private void Sale_text_Click(object sender, EventArgs e)
         {
+            ResetMenuColors();
+            Sale_text.ForeColor = Color.Blue;
             // Form5 인스턴스를 생성하고 보여줍니다.
             Form5 form5 = new Form5();
 
@@ -128,6 +133,8 @@ namespace TeamProject
 
         private void Pmanage_text_Click(object sender, EventArgs e)
         {
+            ResetMenuColors();
+            Pmanage_text.ForeColor = Color.Blue;
             // Form3 인스턴스를 생성하고 보여줍니다.
             상품재고관리 form3 = new 상품재고관리();
 
@@ -135,6 +142,12 @@ namespace TeamProject
 
             // 현재 Form3을 숨기거나 닫습니다.
             this.Hide();
+        }
+        private void ResetMenuColors()
+        {
+            Sale_text.ForeColor = Color.Black;
+            Pmanage_text.ForeColor = Color.Black;
+            Report_text.ForeColor = Color.Black;
         }
 
         private void SetupWeeklyTimer()
@@ -202,6 +215,12 @@ namespace TeamProject
         private void 보고서_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void Report_text_Click(object sender, EventArgs e)
+        {
+            ResetMenuColors();
+            Report_text.ForeColor = Color.Blue;
         }
     }
 }

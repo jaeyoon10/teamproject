@@ -155,6 +155,7 @@
             this.Pmanage_text.Size = new System.Drawing.Size(129, 25);
             this.Pmanage_text.TabIndex = 14;
             this.Pmanage_text.Text = "상품 관리";
+            this.Pmanage_text.Click += new System.EventHandler(this.Pmanage_text_Click);
             // 
             // 재고
             // 
