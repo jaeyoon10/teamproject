@@ -30,10 +30,8 @@
         {
             this.수정 = new System.Windows.Forms.Label();
             this.수정버튼 = new System.Windows.Forms.Button();
-            this.점주ID = new System.Windows.Forms.TextBox();
             this.공급업체 = new System.Windows.Forms.TextBox();
             this.공급_업체 = new System.Windows.Forms.Label();
-            this.점주 = new System.Windows.Forms.Label();
             this.유통기한 = new System.Windows.Forms.DateTimePicker();
             this.label6 = new System.Windows.Forms.Label();
             this.상품이름 = new System.Windows.Forms.TextBox();
@@ -60,7 +58,7 @@
             // 
             // 수정버튼
             // 
-            this.수정버튼.Location = new System.Drawing.Point(266, 567);
+            this.수정버튼.Location = new System.Drawing.Point(266, 521);
             this.수정버튼.Margin = new System.Windows.Forms.Padding(2);
             this.수정버튼.Name = "수정버튼";
             this.수정버튼.Size = new System.Drawing.Size(100, 55);
@@ -68,14 +66,6 @@
             this.수정버튼.Text = "수정";
             this.수정버튼.UseVisualStyleBackColor = true;
             this.수정버튼.Click += new System.EventHandler(this.수정버튼_Click);
-            // 
-            // 점주ID
-            // 
-            this.점주ID.Location = new System.Drawing.Point(148, 239);
-            this.점주ID.Margin = new System.Windows.Forms.Padding(2);
-            this.점주ID.Name = "점주ID";
-            this.점주ID.Size = new System.Drawing.Size(149, 25);
-            this.점주ID.TabIndex = 79;
             // 
             // 공급업체
             // 
@@ -96,20 +86,9 @@
             this.공급_업체.TabIndex = 77;
             this.공급_업체.Text = "공급업체";
             // 
-            // 점주
-            // 
-            this.점주.AutoSize = true;
-            this.점주.Font = new System.Drawing.Font("궁서체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.점주.Location = new System.Drawing.Point(51, 236);
-            this.점주.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.점주.Name = "점주";
-            this.점주.Size = new System.Drawing.Size(79, 20);
-            this.점주.TabIndex = 76;
-            this.점주.Text = "점주 ID";
-            // 
             // 유통기한
             // 
-            this.유통기한.Location = new System.Drawing.Point(148, 331);
+            this.유통기한.Location = new System.Drawing.Point(148, 285);
             this.유통기한.Margin = new System.Windows.Forms.Padding(2);
             this.유통기한.Name = "유통기한";
             this.유통기한.Size = new System.Drawing.Size(161, 25);
@@ -119,7 +98,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("궁서체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label6.Location = new System.Drawing.Point(41, 332);
+            this.label6.Location = new System.Drawing.Point(41, 286);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(89, 20);
@@ -147,7 +126,7 @@
             // 
             // 비고
             // 
-            this.비고.Location = new System.Drawing.Point(148, 454);
+            this.비고.Location = new System.Drawing.Point(148, 408);
             this.비고.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.비고.Multiline = true;
             this.비고.Name = "비고";
@@ -168,7 +147,7 @@
             "담배",
             "뷰티",
             "기타"});
-            this.카테고리.Location = new System.Drawing.Point(148, 286);
+            this.카테고리.Location = new System.Drawing.Point(148, 240);
             this.카테고리.Margin = new System.Windows.Forms.Padding(2);
             this.카테고리.Name = "카테고리";
             this.카테고리.Size = new System.Drawing.Size(149, 23);
@@ -186,7 +165,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("궁서", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label4.Location = new System.Drawing.Point(80, 454);
+            this.label4.Location = new System.Drawing.Point(80, 408);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(49, 20);
@@ -197,7 +176,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("궁서체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label3.Location = new System.Drawing.Point(41, 286);
+            this.label3.Location = new System.Drawing.Point(41, 240);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(89, 20);
@@ -217,7 +196,7 @@
             // 
             // 상품수량
             // 
-            this.상품수량.Location = new System.Drawing.Point(148, 385);
+            this.상품수량.Location = new System.Drawing.Point(148, 339);
             this.상품수량.Margin = new System.Windows.Forms.Padding(2);
             this.상품수량.Name = "상품수량";
             this.상품수량.Size = new System.Drawing.Size(149, 25);
@@ -227,7 +206,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("궁서체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label7.Location = new System.Drawing.Point(42, 385);
+            this.label7.Location = new System.Drawing.Point(42, 339);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(99, 20);
@@ -241,10 +220,8 @@
             this.ClientSize = new System.Drawing.Size(591, 697);
             this.Controls.Add(this.상품수량);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.점주ID);
             this.Controls.Add(this.공급업체);
             this.Controls.Add(this.공급_업체);
-            this.Controls.Add(this.점주);
             this.Controls.Add(this.유통기한);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.상품이름);
@@ -268,10 +245,8 @@
 
         private System.Windows.Forms.Label 수정;
         private System.Windows.Forms.Button 수정버튼;
-        private System.Windows.Forms.TextBox 점주ID;
         private System.Windows.Forms.TextBox 공급업체;
         private System.Windows.Forms.Label 공급_업체;
-        private System.Windows.Forms.Label 점주;
         private System.Windows.Forms.DateTimePicker 유통기한;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox 상품이름;
